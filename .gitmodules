@@ -10,3 +10,36 @@
 [submodule ".vim.bak/bundle/vim/bundle/ctrlp.vim"]
 	path = .vim.bak/bundle/vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim
+[submodule ".vim/bundle/ctrlp.vim"]
+	path = .vim/bundle/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim
+[submodule ".vim/bundle/vim-commentary"]
+	path = .vim/bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule ".vim/bundle/vim-airline"]
+	path = .vim/bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule ".vim/bundle/neocomplete.vim"]
+	path = .vim/bundle/neocomplete.vim
+	url = https://github.com/Shougo/neocomplete.vim
+[submodule ".vim/bundle/vim-better-whitespace"]
+	path = .vim/bundle/vim-better-whitespace
+	url = https://github.com/ntpeters/vim-better-whitespace
+[submodule ".vim/bundle/vim-bracketed-paste"]
+	path = .vim/bundle/vim-bracketed-paste
+	url = https://github.com/ConradIrwin/vim-bracketed-paste
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/vim-eunuch"]
+	path = .vim/bundle/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch
+[submodule ".vim/bundle/vim-repeat"]
+	path = .vim/bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule ".vim/bundle/vim-sensible"]
+	path = .vim/bundle/vim-sensible
+	url = git://github.com/tpope/vim-sensible.git
+[submodule ".vim/bundle/vim-unimpaired"]
+	path = .vim/bundle/vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git

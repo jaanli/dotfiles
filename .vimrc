@@ -12,6 +12,7 @@ let s:tabwidth=2
 exec 'set tabstop='    .s:tabwidth
 exec 'set shiftwidth=' .s:tabwidth
 exec 'set softtabstop='.s:tabwidth
+" for ctrl p. need to run `:helptags ~/.vim/bundle/ctrlp.vim/doc` in vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set autoindent
 " autocmd Filetype python setlocal tabstop=2
