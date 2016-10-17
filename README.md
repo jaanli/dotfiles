@@ -45,6 +45,9 @@ config remote set-url origin git@github.com:altosaar/dotfiles.git
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 ```
 
+Hiccups:
+* if the latest tmux/vim can't be installed (e.g. on AWS), oh-my-zsh autocompletion in tmux may fail for some themes/trailing dots
+
 ### Managing plugins with pathogen and tmux plugin manager
 To install a plugin, we need to tell git that it is a submodule. Adding a folder recursively that contains git repositories (submodules) will not work. After adding all submodules/plugins we need, we can pull them all at once. The dotfiles repo then needs to be cloned with the `--recursive` option, or we can run `git submodule update --init` as above.
 ```
