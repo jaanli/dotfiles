@@ -46,7 +46,7 @@ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/to
 ```
 
 ### Managing plugins with pathogen and tmux plugin manager
-To install a plugin, we need to tell git that it is a submodule. After adding all submodules, we can pull them all at once. The dotfiles repo then needs to be cloned with the `--recursive` option, or we can run `git submodule update --init` as above.
+To install a plugin, we need to tell git that it is a submodule. Adding a folder recursively that contains git repositories (submodules) will not work. After adding all submodules/plugins we need, we can pull them all at once. The dotfiles repo then needs to be cloned with the `--recursive` option, or we can run `git submodule update --init` as above.
 ```
 cd ~/.vim/bundle
 config submodule add https://github.com/tpope/vim-repeat
