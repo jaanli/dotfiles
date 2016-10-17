@@ -54,15 +54,12 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# source sublime
-export EDITOR='subl -w'
 
 #define history search fn
 hgrep () {
     history | egrep --color=auto --recursive "$@" | egrep --color=auto --recursive -v "hgrep $@"
 }
 
-alias rf="realpath $@"
 
 # This way the completion script does not have to parse Bazel's options
 # repeatedly.  The directory in cache-path must be created manually.
@@ -72,22 +69,22 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 # for dotfiles config
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# for getting full paths
+alias rf="readlink -f $@"
 
 if [[ "$USER" == "jaanaltosaar" ]];
 then
+	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
   #export PATH="/usr/local/bin:$PATH"
   export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
   #export PATH="/Users/jaanaltosaar/anaconda3/bin:$PATH"
   export PATH="/Users/jaanaltosaar/anaconda2/bin:$PATH"
   export PATH="$HOME/bin:$PATH"
-
-  #export PATH="/Users/jaanaltosaar/anaconda/bin:$PATH"
   # for bazel
   export FPATH=/Users/jaanaltosaar/.bazel:$FPATH
-  #android ndk
-  #export PATH="/Users/jaanaltosaar/projects/style-app/android-ndk-r10e:$PATH"
-  #export PATH="$PATH:/Users/jaanaltosaar/Library/Android/sdk/platform-tools"
+	# source sublime
+	export EDITOR='subl -w'
   # Load RVM
   #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
   #PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
