@@ -1,0 +1,20 @@
+[ui]
+# Name data to appear in commits
+username = Jaan Altosaar <jaan.altosaar@gmail.com>
+#/* merge = internal:merge */
+
+[extensions]
+color =
+pager =
+hgext.extdiff =
+
+[pager]
+pager = LESS='FRSXQ' less
+quiet = True
+attend = outgoing,incoming,diff,status,log,qdiff,blame,annotate,pdiff,glog
+
+[extdiff]
+cmd.kdiff3 =
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
