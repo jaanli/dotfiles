@@ -1,0 +1,12 @@
+[submodule ".vim/vim-pathogen"]
+	path = .vim/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule ".vim/bundle/vim-pathogen"]
+	path = .vim/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule ".vim/bundle/vim/bundle/vim-fugitive"]
+	path = .vim/bundle/vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim.bak/bundle/vim/bundle/ctrlp.vim"]
+	path = .vim.bak/bundle/vim/bundle/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim

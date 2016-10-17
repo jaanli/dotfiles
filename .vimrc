@@ -1,5 +1,7 @@
 syntax on
-call pathogen#infect('bundle/{}')
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+" call pathogen#infect('bundle/{}')
 filetype plugin indent on
 
 set nocompatible
