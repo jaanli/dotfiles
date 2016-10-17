@@ -1,6 +1,7 @@
-Initial steps for cloning dotfiles and getting to work.
+## Dotfiles management
 
-Modified from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+Modified from [Atlassian and Hacker News](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/) to work with submodules in github.
+
 ```
 git init --bare $HOME/.cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -22,8 +23,18 @@ config submodule update --init
 ```
 
 May need:
-`git config user.name "Jaan Altosaar"`
-`git config --global user.email "jaan.altosaar@gmail.com"`
+```
+# generate a new ssh key for adding to github ssh keys
+ssh-keygen -t rsa -b 4096 -C "jaan.altosaar@gmail.com"
+cat ~/.ssh/id_rsa.pub
+# set default git config
+git config user.name "Jaan Altosaar"
+git config --global user.email "jaan.altosaar@gmail.com"
+# set a remote
+config remote set-url origin git@github.com:altosaar/dotfiles.git
+# install oh-my-zsh
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+```
 
 ### Managing plugins with pathogen and tmux plugin manager
 To install a plugin:
