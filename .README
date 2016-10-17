@@ -1,5 +1,6 @@
-initial steps:
-from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+Initial steps for cloning dotfiles and getting to work.
+
+Modified from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 ```
 git init --bare $HOME/.cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -8,7 +9,7 @@ config config --local status.showUntrackedFiles no
 echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
 ```
 
-on a new computer:
+On a new computer:
 ```
 # add to zhrc or bashrc
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -16,6 +17,17 @@ echo ".cfg" >> .gitignore
 git clone --bare <git-repo-url> $HOME/.cfg
 config checkout
 config config --local status.showUntrackedFiles no
+# IMPORTANT: this pulls the latest plugins we are using
+config submodule update --init
 ```
 
+May need:
+`git config user.name "Jaan Altosaar"`
+`git config --global user.email "jaan.altosaar@gmail.com"`
 
+### Managing plugins with pathogen and tmux plugin manager
+To install a plugin:
+```
+cd ~/.vim/bundle
+config submodule add https://github.com/tpope/vim-repeat
+```
