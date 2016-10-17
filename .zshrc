@@ -5,8 +5,8 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="sunrise"
-ZSH_THEME="robbyrussell"
+ZSH_THEME="imajes"
+# ZSH_THEME="robbyrussell"
 #ZSH_THEME="agnoster" # (this is one of the fancy ones)
 
 # Example aliases
