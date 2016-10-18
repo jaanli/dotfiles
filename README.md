@@ -56,5 +56,5 @@ To install a plugin, we need to tell git that it is a submodule. Adding a folder
 ```
 cd ~/.vim/bundle
 config submodule add https://github.com/tpope/vim-repeat
-git submodule foreach git pull
+config submodule foreach git pull
 ```
