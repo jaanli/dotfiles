@@ -43,6 +43,9 @@ git config --global user.email "jaan.altosaar@gmail.com"
 config remote set-url origin git@github.com:altosaar/dotfiles.git
 # install oh-my-zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+# set correct locale
+sudo locale-gen "en_US.UTF-8"
+# install latest tmux (required for scrolling and proper copying in panes): https://gist.github.com/P7h/91e14096374075f5316e/ffef0c44907f3f247aab4d0888d116e85eb5c072 with correct URL from https://launchpad.net/~pi-rho/+archive/ubuntu/dev
 ```
 
 Hiccups:
