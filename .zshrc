@@ -5,9 +5,9 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="imajes"
-# ZSH_THEME="robbyrussell"
-#ZSH_THEME="agnoster" # (this is one of the fancy ones)
+# ZSH_THEME="imajes"
+ZSH_THEME="robbyrussell"
+# ZSH_THEME="agnoster" # (this is one of the fancy ones)
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -57,7 +57,7 @@ source $ZSH/oh-my-zsh.sh
 
 #define history search fn
 hgrep () {
-    history | egrep --color=auto --recursive "$@" | egrep --color=auto --recursive -v "hgrep $@"
+	history | egrep --color=auto --recursive "$@" | egrep --color=auto --recursive -v "hgrep $@"
 }
 
 
@@ -76,66 +76,69 @@ if [[ "$USER" == "jaanaltosaar" ]];
 then
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-  #export PATH="/usr/local/bin:$PATH"
-  export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
-  #export PATH="/Users/jaanaltosaar/anaconda3/bin:$PATH"
-  export PATH="/Users/jaanaltosaar/anaconda2/bin:$PATH"
-  export PATH="$HOME/bin:$PATH"
-  # for bazel
-  export FPATH=/Users/jaanaltosaar/.bazel:$FPATH
+	#export PATH="/usr/local/bin:$PATH"
+	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
+	#export PATH="/Users/jaanaltosaar/anaconda3/bin:$PATH"
+	export PATH="/Users/jaanaltosaar/anaconda2/bin:$PATH"
+	export PATH="$HOME/bin:$PATH"
+	# for bazel
+	export FPATH=/Users/jaanaltosaar/.bazel:$FPATH
 	# source sublime
 	export EDITOR='subl -w'
-  # Load RVM
-  #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-  #PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+	# Load RVM
+	#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+	#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-  # for mactex 2015
-  #export PATH="/Library/TeX/texbin:$PATH"
+	# for mactex 2015
+	#export PATH="/Library/TeX/texbin:$PATH"
 
-  export DEFAULT_USER="jaanaltosaar"
+	export DEFAULT_USER="jaanaltosaar"
 
-  #export PATH=$PATH:/usr/local/Cellar/ruby/2.3.1/lib/ruby/gems/2.3.0/gems/jekyll-3.1.6/bin/:/usr/local/Cellar/ruby/2.3.1/lib/ruby/gems/2.3.0/gems/sass-3.4.22/bin/
+	#export PATH=$PATH:/usr/local/Cellar/ruby/2.3.1/lib/ruby/gems/2.3.0/gems/jekyll-3.1.6/bin/:/usr/local/Cellar/ruby/2.3.1/lib/ruby/gems/2.3.0/gems/sass-3.4.22/bin/
 
-  # from https://coderwall.com/p/6bqzvq/sudoless-brewed-rubygems-on-os-x
-  export RBENV_ROOT="$(brew --prefix rbenv)"
-  export GEM_HOME="$(brew --prefix)/opt/gems"
-  export GEM_PATH="$(brew --prefix)/opt/gems"
+	# from https://coderwall.com/p/6bqzvq/sudoless-brewed-rubygems-on-os-x
+	export RBENV_ROOT="$(brew --prefix rbenv)"
+	export GEM_HOME="$(brew --prefix)/opt/gems"
+	export GEM_PATH="$(brew --prefix)/opt/gems"
 
 elif [[ "$USER" == "jaan" ]];
 then
-  # Setup CUDA
-  export DYLD_LIBRARY_PATH=/usr/local/cuda-7.5/lib/:/usr/local/cuda-7.5/lib64/
-  export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib:/usr/local/cuda-7.5/lib64/
-  export CUDA_HOME=/usr/local/cuda-7.5
-  export PATH=$PATH:/usr/local/cuda-7.5/bin/
+	# Setup CUDA
+	export DYLD_LIBRARY_PATH=/usr/local/cuda-7.5/lib/:/usr/local/cuda-7.5/lib64/
+	export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib:/usr/local/cuda-7.5/lib64/
+	export CUDA_HOME=/usr/local/cuda-7.5
+	export PATH=$PATH:/usr/local/cuda-7.5/bin/
 
-  # Add my stuff
-  export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/lib/
-  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
+	# Add my stuff
+	export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/lib/
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
 
-  # only let tensorflow see gpu:1
-  export CUDA_VISIBLE_DEVICES=1
+	# only let tensorflow see gpu:1
+	export CUDA_VISIBLE_DEVICES=1
 
-  keychain id_rsa id_dsa
-  . ~/.keychain/`uname -n`-sh
+	keychain id_rsa id_dsa
+	. ~/.keychain/`uname -n`-sh
 
-  # for powerline theme
-  TERM="xterm-256color"
+	# for powerline theme
+	TERM="xterm-256color"
 
-  # Configuration for ~/.bash_profile, ~/.zshrc etc:
-  # # Pipe anything into `clip` to forward it to Clipper
-  alias clip="nc localhost 8377"
-  # Or, if you are running Clipper on a UNIX domain socket:
-  #alias clip="nc -U ~/.clipper.sock"
+	# Configuration for ~/.bash_profile, ~/.zshrc etc:
+	# # Pipe anything into `clip` to forward it to Clipper
+	alias clip="nc localhost 8377"
+	# Or, if you are running Clipper on a UNIX domain socket:
+	#alias clip="nc -U ~/.clipper.sock"
+elif [[ "$UID" == "0" ]];
+then
+	source /usr/share/autojump/autojump.zsh
 fi
 
 bindkey -e
 bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 
-export LC_ALL=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LANG=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
+# export LC_CTYPE=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
 export POWERLINE_CONFIG_COMMAND=powerline-config
 export POWERLINE_COMMAND=powerline

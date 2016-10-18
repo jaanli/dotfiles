@@ -39,7 +39,8 @@ set colorcolumn=80
 " strip trailing whitespace no save with vim better whitespace plugin
 autocmd BufWritePre * StripWhitespace
 
-" autocompletion
+" autocompletion. neocomplete requires vim-nox or vim compiled with lua
+" install: sudo apt-get install vim-nox on ubuntu
 let g:neocomplete#enable_at_startup = 1
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
