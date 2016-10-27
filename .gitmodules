@@ -46,3 +46,6 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule ".vim/vim-dispatch"]
+	path = .vim/vim-dispatch
+	url = git://github.com/tpope/vim-dispatch.git
