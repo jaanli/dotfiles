@@ -66,7 +66,7 @@ let mapleader = " "
 
 " use easymotion defaults
 let g:EasyMotion_do_mapping = 1
-map <Leader> <Plug>(easymotion-prefix)
+" map <Leader> <Plug>(easymotion-prefix)
 
 
 

@@ -72,6 +72,9 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # for getting full paths
 alias rf="readlink -f $@"
 
+# for powerline theme
+export TERM="xterm-256color"
+
 if [[ "$USER" == "jaanaltosaar" ]];
 then
 	alias rf="realpath $@"
@@ -119,8 +122,6 @@ then
 	keychain id_rsa id_dsa
 	. ~/.keychain/`uname -n`-sh
 
-	# for powerline theme
-	TERM="xterm-256color"
 
 	# Configuration for ~/.bash_profile, ~/.zshrc etc:
 	# # Pipe anything into `clip` to forward it to Clipper
