@@ -44,3 +44,15 @@ autocmd BufWritePre * StripWhitespace
 let g:neocomplete#enable_at_startup = 1
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+
+" Python-mode options
+" remove autocomplete python-mode help bar
+set completeopt=menu
+" Disable pylint checking every save
+let g:pymode_lint_write = 0
+
+" for vimux
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "60"
+" Run the current file with rspec
+map <Leader>rb :call VimuxRunCommand("clear; python " . bufname("%"))<CR>

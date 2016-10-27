@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/vim-dispatch"]
 	path = .vim/bundle/vim-dispatch
 	url = git://github.com/tpope/vim-dispatch.git
+[submodule ".vim/bundle/python-mode"]
+	path = .vim/bundle/python-mode
+	url = https://github.com/klen/python-mode.git
