@@ -16,10 +16,11 @@ exec 'set softtabstop='.s:tabwidth
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set autoindent
 " autocmd Filetype python setlocal tabstop=2
-" set smartindent
+set smartindent
 set cindent
 set cinkeys-=0#
 set indentkeys-=0#
+:inoremap # X<BS>#
 " ignore case in search
 set ic
 
@@ -43,3 +44,28 @@ autocmd BufWritePre * StripWhitespace
 let g:neocomplete#enable_at_startup = 1
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+let g:neocomplete#enable_auto_select = 1
+
+" set space to leader
+let mapleader = "\<Space>"
+
+" use easymotion defaults
+let g:EasyMotion_do_mapping = 1
+
+
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" Go to last active tab
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
