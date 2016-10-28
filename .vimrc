@@ -62,7 +62,8 @@ let g:neocomplete#enable_auto_select = 1
 
 " set space to leader
 nnoremap <SPACE> <Nop>
-let mapleader = " "
+" let mapleader = " "
+let mapleader = "\<Space>"
 
 " use easymotion defaults
 let g:EasyMotion_do_mapping = 1
@@ -86,3 +87,15 @@ noremap <leader>0 :tablast<cr>
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+
+
+" syntastic for pylint
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_python_checkers = ['pylint']
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
