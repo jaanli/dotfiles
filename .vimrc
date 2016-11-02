@@ -57,6 +57,7 @@ let g:VimuxOrientation = "h"
 let g:VimuxHeight = "60"
 " Run the current file with python
 map <Leader>rb :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
+map <Leader>ra :call VimuxRunLastCommand()<CR>
 
 let g:neocomplete#enable_auto_select = 1
 
@@ -99,3 +100,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'mode': 'passive' }

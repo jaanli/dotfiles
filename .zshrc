@@ -75,6 +75,9 @@ alias rf="readlink -f $@"
 # for powerline theme
 export TERM="xterm-256color"
 
+# for vim everywhere
+export EDITOR="vim"
+
 if [[ "$USER" == "jaanaltosaar" ]];
 then
 	alias rf="realpath $@"
@@ -86,8 +89,7 @@ then
 	export PATH="$HOME/bin:$PATH"
 	# for bazel
 	export FPATH=/Users/jaanaltosaar/.bazel:$FPATH
-	# source sublime
-	export EDITOR='subl -w'
+	# export EDITOR='subl -w'
 	# Load RVM
 	#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 	#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -119,8 +121,6 @@ then
 	# only let tensorflow see gpu:1
 	export CUDA_VISIBLE_DEVICES=1
 
-	keychain id_rsa id_dsa
-	. ~/.keychain/`uname -n`-sh
 
 
 	# Configuration for ~/.bash_profile, ~/.zshrc etc:
@@ -132,6 +132,11 @@ elif [[ "$UID" == "0" ]];
 then
 	source /usr/share/autojump/autojump.zsh
 fi
+
+# keychain id_rsa
+. ~/.keychain/`uname -n`-sh
+# eval $(keychain --eval --agents ssh id_rsa)
+
 
 bindkey -e
 bindkey '^[[1;9C' forward-word
