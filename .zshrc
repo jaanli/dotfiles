@@ -133,10 +133,10 @@ then
 	source /usr/share/autojump/autojump.zsh
 fi
 
-# keychain id_rsa
-. ~/.keychain/`uname -n`-sh
-# eval $(keychain --eval --agents ssh id_rsa)
 
+keychain id_rsa
+. ~/.keychain/`uname -n`-sh
+#eval $(keychain --eval --agents ssh id_rsa)
 
 bindkey -e
 bindkey '^[[1;9C' forward-word
