@@ -21,14 +21,29 @@ config push
 
 On a new computer:
 ```
-# add to zhrc or bashrc
+# install zsh
+sudo apt-get install zsh
+# create default options
+zsh
+# make zsh default, install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# clone the repo
+git clone --bare https://github.com/altosaar/dotfiles $HOME/.cfg
+# add to zshrc or bashrc
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+# add to gitignore
 echo ".cfg" >> .gitignore
-git clone --bare <git-repo-url> $HOME/.cfg
 config checkout
 config config --local status.showUntrackedFiles no
 # IMPORTANT: this pulls the latest plugins we are using, see below
 config submodule update --init
+# set git variables
+git config --global user.email blah
+git config --global user.name "Jaan Altosaar"
+# generate a new key
+ssh-keygen -t rsa -b 4096 -C "your_email@example"
+sudo apt-get install keychain
+source ~/.zshrc
 ```
 
 Random commands that may be necessary on a new machine:
