@@ -25,10 +25,13 @@ On a new computer:
 ssh-copy-id user@host
 # install zsh
 sudo apt-get install zsh
-# create default options
-zsh
 # make zsh default, install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# may need to logout
+exit
+# locally
+ssh -O exit user@host
+# login again; shell should change
 # clone the repo
 git clone --bare https://github.com/altosaar/dotfiles $HOME/.cfg
 # add to zshrc or bashrc
