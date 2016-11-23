@@ -21,6 +21,8 @@ config push
 
 On a new computer:
 ```
+# locally
+ssh-copy-id user@host
 # install zsh
 sudo apt-get install zsh
 # create default options
