@@ -23,8 +23,8 @@ On a new computer:
 ```
 # locally
 ssh-copy-id user@host
-# install zsh
-sudo apt-get install zsh
+# install zsh and other things
+sudo apt-get install zsh autojump keychain
 # make zsh default, install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 # may need to logout
@@ -47,13 +47,10 @@ git config --global user.email blah
 git config --global user.name "Jaan Altosaar"
 # generate a new key
 ssh-keygen -t rsa -b 4096 -C "your_email@example"
-sudo apt-get install keychain
 source ~/.zshrc
 # update & upgrade
 sudo apt-get update
 sudo apt-get upgrade
-# install latest vim with lua
-sudo apt-get install vim-nox
 # install latest tmux
 lsb_release -a  # then follow: https://gist.github.com/P7h/91e14096374075f5316e
 sudo apt-get install tmux-next=2.3~20161117~bzr3621+20-1ubuntu1~ppa0~ubuntu14.04.1	# get this from https://launchpad.net/~pi-rho/+archive/ubuntu/dev
