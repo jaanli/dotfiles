@@ -59,6 +59,14 @@ sudo locale-gen "en_US.UTF-8"
 
 Hiccups:
 * if the latest tmux/vim can't be installed (e.g. on AWS), oh-my-zsh autocompletion in tmux may fail for some themes/trailing dots
+* installing tmux:
+```
+sudo apt-get update
+sudo apt-get install python-software-properties software-properties-common
+sudo add-apt-repository ppa:pi-rho/dev
+sudo apt-get update
+sudo apt-get install tmux=2.0-1~ppa1~t
+```
 
 ### Managing plugins with pathogen and tmux plugin manager
 To install a plugin, we need to tell git that it is a submodule. Adding a folder recursively that contains git repositories (submodules) will not work. After adding all submodules/plugins we need, we can pull them all at once. The dotfiles repo then needs to be cloned with the `--recursive` option, or we can run `git submodule update --init` as above.
