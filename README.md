@@ -54,23 +54,7 @@ sudo apt-get upgrade
 # install latest tmux
 lsb_release -a  # then follow: https://gist.github.com/P7h/91e14096374075f5316e
 sudo apt-get install tmux-next=2.3~20161117~bzr3621+20-1ubuntu1~ppa0~ubuntu14.04.1	# get this from https://launchpad.net/~pi-rho/+archive/ubuntu/dev
-```
-
-Random commands that may be necessary on a new machine:
-```
-# generate a new ssh key for adding to github ssh keys
-ssh-keygen -t rsa -b 4096 -C "jaan.altosaar@gmail.com"
-cat ~/.ssh/id_rsa.pub
-# set default git config
-git config user.name "Jaan Altosaar"
-git config --global user.email "jaan.altosaar@gmail.com"
-# set a remote
-config remote set-url origin git@github.com:altosaar/dotfiles.git
-# install oh-my-zsh
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-# set correct locale
 sudo locale-gen "en_US.UTF-8"
-# install latest tmux (required for scrolling and proper copying in panes): https://gist.github.com/P7h/91e14096374075f5316e/ffef0c44907f3f247aab4d0888d116e85eb5c072 with correct URL from https://launchpad.net/~pi-rho/+archive/ubuntu/dev
 ```
 
 Hiccups:
