@@ -78,6 +78,9 @@ export TERM="xterm-256color"
 # for vim everywhere
 export EDITOR="vim"
 
+. /usr/share/autojump/autojump.sh
+
+
 if [[ "$USER" == "jaanaltosaar" ]];
 then
 	alias rf="realpath $@"
