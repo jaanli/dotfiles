@@ -82,10 +82,9 @@ if [[ "$USER" == "jaanaltosaar" ]];
 then
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-	#export PATH="/usr/local/bin:$PATH"
 	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
-	#export PATH="/Users/jaanaltosaar/anaconda3/bin:$PATH"
-	export PATH="/Users/jaanaltosaar/anaconda2/bin:$PATH"
+	export PATH="/Users/jaanaltosaar/anaconda3/bin:$PATH"
+	# export PATH="/Users/jaanaltosaar/anaconda2/bin:$PATH"
 	export PATH="$HOME/bin:$PATH"
 	# for bazel
 	export FPATH=/Users/jaanaltosaar/.bazel:$FPATH
@@ -148,3 +147,5 @@ bindkey '^[[1;9D' backward-word
 
 export POWERLINE_CONFIG_COMMAND=powerline-config
 export POWERLINE_COMMAND=powerline
+
+source ~/.experimentrc

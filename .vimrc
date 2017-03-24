@@ -6,6 +6,9 @@ call pathogen#infect()
 filetype plugin indent on
 autocmd FileType python setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType c setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType js setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2
 
 set nocompatible
 
@@ -80,9 +83,9 @@ vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 
 
 " syntastic for pylint
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 let g:syntastic_python_checkers = ['pylint']
 
 let g:syntastic_always_populate_loc_list = 1
@@ -90,4 +93,3 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'mode': 'passive' }
-
