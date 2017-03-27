@@ -78,7 +78,6 @@ export TERM="xterm-256color"
 # for vim everywhere
 export EDITOR="vim"
 
-. /usr/share/autojump/autojump.sh
 
 
 if [[ "$USER" == "jaanaltosaar" ]];
@@ -110,6 +109,7 @@ then
 
 elif [[ "$USER" == "jaan" ]];
 then
+	. /usr/share/autojump/autojump.sh
 	# Setup CUDA
 	export DYLD_LIBRARY_PATH=/usr/local/cuda-7.5/lib/:/usr/local/cuda-7.5/lib64/
 	export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib:/usr/local/cuda-7.5/lib64/
