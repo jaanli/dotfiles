@@ -57,6 +57,10 @@ sudo apt-get install tmux-next=2.3~20161117~bzr3621+20-1ubuntu1~ppa0~ubuntu14.04
 sudo locale-gen "en_US.UTF-8"
 ```
 
+In vim, install plugins with vundle:
+`git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+Then open vim, and type `:BundleInstall`.
+
 Hiccups:
 * if the latest tmux/vim can't be installed (e.g. on AWS), oh-my-zsh autocompletion in tmux may fail for some themes/trailing dots
 * installing tmux:
