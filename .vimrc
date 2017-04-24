@@ -1,3 +1,12 @@
+set nocompatible
+
+" " vundle setup
+" filetype off
+" set runtimepath+=~/.vim/bundle/vundle
+" call vundle#rc()
+
+" Bundle 'gmarik/vundle'
+
 syntax on
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
@@ -10,7 +19,6 @@ autocmd FileType c setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType js setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2
 
-set nocompatible
 
 " for ctrl p. need to run `:helptags ~/.vim/bundle/ctrlp.vim/doc` in vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -60,6 +68,8 @@ nnoremap <SPACE> <Nop>
 " let mapleader = " "
 let mapleader = "\<Space>"
 
+nnoremap <leader><shift> <Nop>
+
 " use easymotion defaults
 let g:EasyMotion_do_mapping = 1
 " map <Leader> <Plug>(easymotion-prefix)
@@ -81,15 +91,14 @@ au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 
-
 " syntastic for pylint
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_python_checkers = ['pylint']
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_python_checkers = ['pylint']
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = { 'mode': 'passive' }
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_mode_map = { 'mode': 'passive' }
