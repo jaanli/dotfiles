@@ -1,15 +1,47 @@
-set nocompatible
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" " vundle setup
-" filetype off
-" set runtimepath+=~/.vim/bundle/vundle
-" call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-" Bundle 'gmarik/vundle'
+call vundle#rc()
 
-syntax on
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Bundle 'ctrlpvim/ctrlp.vim'
+Bundle 'Shougo/neocomplete.vim'
+" Bundle 'scrooloose/syntastic'
+Bundle 'vim-airline/vim-airline'
+Bundle 'ntpeters/vim-better-whitespace'
+Bundle 'ConradIrwin/vim-bracketed-paste'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-eunuch'
+Bundle 'pangloss/vim-javascript'
+Bundle 'tpope/vim-pathogen'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'benmills/vimux'
+Bundle 'easymotion/vim-easymotion'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+
+" old, for pathogen
+" syntax on
+" runtime bundle/vim-pathogen/autoload/pathogen.vim
+" call pathogen#infect()
 " call pathogen#infect('bundle/{}')
 
 filetype plugin indent on
