@@ -5,7 +5,6 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="imajes"
 ZSH_THEME="robbyrussell"
 # ZSH_THEME="agnoster" # (this is one of the fancy ones)
 
@@ -53,7 +52,6 @@ plugins=(git autojump ruby tmux)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-
 
 #define history search fn
 hgrep () {
@@ -112,6 +110,7 @@ then
 	source /usr/share/autojump/autojump.zsh
 fi
 
+# for managing ssh keys and not having to type in key pass all the time
 keychain id_rsa
 . ~/.keychain/`uname -n`-sh
 #eval $(keychain --eval --agents ssh id_rsa)
