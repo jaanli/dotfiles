@@ -87,6 +87,8 @@ then
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 	# export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	# for rbenv, ruby, jekyll
+	if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 elif [[ "$USER" == "jaan" ]];
 then
 	. /usr/share/autojump/autojump.sh
