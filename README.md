@@ -61,6 +61,11 @@ In vim, install plugins with vundle:
 `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 Then open vim, and type `:BundleInstall`.
 
+### Notes for mac setup
+```
+# better defaults for sierra+ https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+```
+
 Hiccups:
 * if the latest tmux/vim can't be installed (e.g. on AWS), oh-my-zsh autocompletion in tmux may fail for some themes/trailing dots
 * installing tmux:
