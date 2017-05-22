@@ -82,10 +82,10 @@ export EDITOR="vim"
 
 if [[ "$USER" == "jaanaltosaar" ]];
 then
+	export PATH="/usr/local/anaconda3/bin:$PATH"
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
-	export PATH="/usr/local/anaconda3:$PATH"
+	# export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ "$USER" == "jaan" ]];
 then
