@@ -47,7 +47,7 @@ alias rs="rsync -az --progress $@"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump ruby tmux)
+plugins=(git autojump ruby tmux docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,6 +80,8 @@ export EDITOR="vim"
 
 if [[ "$USER" == "jaanaltosaar" ]];
 then
+	## NB: this can break brew install vim --with-lua (may need to comment)
+	# because it symlinks python to python3! and homebrew needs python2.7
 	export PATH="/usr/local/anaconda3/bin:$PATH"
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh

@@ -30,6 +30,9 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'benmills/vimux'
 Bundle 'easymotion/vim-easymotion'
+" Bundle 'stephpy/vim-yaml'
+Bundle 'saltstack/salt-vim'
+
 
 " Google code formatting plugin
 " Add maktaba and codefmt to the runtimepath.
@@ -77,6 +80,7 @@ autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType c setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType js setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType yml setlocal expandtab shiftwidth=2 softtabstop=2
 
 
 " for ctrl p. need to run `:helptags ~/.vim/bundle/ctrlp.vim/doc` in vim
