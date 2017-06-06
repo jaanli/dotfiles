@@ -13,7 +13,7 @@ call vundle#rc()
 Plugin 'VundleVim/Vundle.vim'
 
 Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'Shougo/neocomplete.vim'
+" Bundle 'Shougo/neocomplete.vim'
 " Bundle 'scrooloose/syntastic'
 Bundle 'vim-airline/vim-airline'
 Bundle 'ntpeters/vim-better-whitespace'
@@ -32,6 +32,7 @@ Bundle 'benmills/vimux'
 Bundle 'easymotion/vim-easymotion'
 " Bundle 'stephpy/vim-yaml'
 Bundle 'saltstack/salt-vim'
+Bundle 'valloric/YouCompleteMe'
 
 
 " Google code formatting plugin
@@ -108,9 +109,9 @@ autocmd BufWritePre * StripWhitespace
 
 " autocompletion. neocomplete requires vim-nox or vim compiled with lua
 " install: sudo apt-get install vim-nox on ubuntu
-let g:neocomplete#enable_at_startup = 1
-inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+" let g:neocomplete#enable_at_startup = 1
+" inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
+" inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " Python-mode options
 " remove autocomplete python-mode help bar
@@ -124,7 +125,7 @@ let g:VimuxHeight = "60"
 " Run the last comand
 map <F5> :call VimuxRunLastCommand()<CR>
 
-let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#enable_auto_select = 1
 
 " set space to leader
 nnoremap <SPACE> <Nop>
