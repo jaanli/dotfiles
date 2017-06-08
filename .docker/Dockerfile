@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
   pkg-config \
   clang-format \
   libgsl2 \
+  wget \
   libgsl-dev \
   libarmadillo6 \
   libarmadillo-dev \
