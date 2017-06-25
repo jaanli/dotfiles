@@ -25,6 +25,7 @@ On a new computer:
 ssh-copy-id user@host
 # install zsh and other things
 sudo apt-get install zsh autojump keychain
+# brew install zsh-syntax-highlighting
 # set git variables
 git config --global user.email blah
 git config --global user.name "Jaan Altosaar"
