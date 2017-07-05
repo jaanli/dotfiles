@@ -65,6 +65,7 @@ Then open vim, and type `:BundleInstall`.
 ### Notes for mac setup
 ```
 # better defaults for sierra+ https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+brew cask install spotify evernote simplenote dropbox vlc slack 1password skim caffeine mactex skype anaconda google-chrome alfred iterm2 flux spectacle rescuetime sublime-text macbreakz little-snitch nosleep
 ```
 
 Hiccups:
