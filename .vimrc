@@ -91,6 +91,9 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 " ignore case in search
 set ic
 
+" line numbers
+set number
+
 " save with one key
 map <F3> :w<CR>
 
