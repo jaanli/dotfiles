@@ -78,11 +78,11 @@ export TERM="xterm-256color"
 # for vim everywhere
 export EDITOR="vim"
 
-. /usr/share/autojump/autojump.sh
 
 
 if [[ "$USER" == "jaanaltosaar" ]];
 then
+	. /usr/share/autojump/autojump.sh
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
@@ -130,6 +130,10 @@ then
 	alias clip="nc localhost 8377"
 	# Or, if you are running Clipper on a UNIX domain socket:
 	#alias clip="nc -U ~/.clipper.sock"
+elif [[ "$USER" == "altosaar" ]];
+then
+	[[ -s /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh
+	export PATH="/home/waldorf/altosaar/anaconda3/bin:$PATH"
 elif [[ "$UID" == "0" ]];
 then
 	source /usr/share/autojump/autojump.zsh
