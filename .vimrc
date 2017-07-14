@@ -1,6 +1,78 @@
-syntax on
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+call vundle#rc()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Bundle 'ctrlpvim/ctrlp.vim'
+" Bundle 'Shougo/neocomplete.vim'
+" Bundle 'scrooloose/syntastic'
+Bundle 'vim-airline/vim-airline'
+Bundle 'ntpeters/vim-better-whitespace'
+Bundle 'ConradIrwin/vim-bracketed-paste'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-eunuch'
+Bundle 'pangloss/vim-javascript'
+Bundle 'tpope/vim-pathogen'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'benmills/vimux'
+Bundle 'easymotion/vim-easymotion'
+" Bundle 'stephpy/vim-yaml'
+Bundle 'saltstack/salt-vim'
+Bundle 'valloric/YouCompleteMe'
+
+
+" Google code formatting plugin
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plugin 'google/vim-glaive'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+" Google code formatting plugin
+" the glaive#Install() should go after the "call vundle#end()"
+call glaive#Install()
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  " autocmd FileType python AutoFormatBuffer yapf
+  autocmd FileType python AutoFormatBuffer autopep8
+augroup END
+
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+
+" old, for pathogen
+" syntax on
+" runtime bundle/vim-pathogen/autoload/pathogen.vim
+" call pathogen#infect()
 " call pathogen#infect('bundle/{}')
 
 filetype plugin indent on
@@ -9,8 +81,8 @@ autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType c setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType js setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType yml setlocal expandtab shiftwidth=2 softtabstop=2
 
-set nocompatible
 
 " for ctrl p. need to run `:helptags ~/.vim/bundle/ctrlp.vim/doc` in vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -18,6 +90,9 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " ignore case in search
 set ic
+
+" line numbers
+set number
 
 " save with one key
 map <F3> :w<CR>
@@ -37,9 +112,9 @@ autocmd BufWritePre * StripWhitespace
 
 " autocompletion. neocomplete requires vim-nox or vim compiled with lua
 " install: sudo apt-get install vim-nox on ubuntu
-let g:neocomplete#enable_at_startup = 1
-inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+" let g:neocomplete#enable_at_startup = 1
+" inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
+" inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " Python-mode options
 " remove autocomplete python-mode help bar
@@ -53,12 +128,14 @@ let g:VimuxHeight = "60"
 " Run the last comand
 map <F5> :call VimuxRunLastCommand()<CR>
 
-let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#enable_auto_select = 1
 
 " set space to leader
 nnoremap <SPACE> <Nop>
 " let mapleader = " "
 let mapleader = "\<Space>"
+
+nnoremap <leader><shift> <Nop>
 
 " use easymotion defaults
 let g:EasyMotion_do_mapping = 1
@@ -81,15 +158,14 @@ au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 
-
 " syntastic for pylint
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_python_checkers = ['pylint']
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_python_checkers = ['pylint']
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = { 'mode': 'passive' }
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_mode_map = { 'mode': 'passive' }

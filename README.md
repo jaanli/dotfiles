@@ -25,6 +25,7 @@ On a new computer:
 ssh-copy-id user@host
 # install zsh and other things
 sudo apt-get install zsh autojump keychain
+# brew install zsh-syntax-highlighting
 # set git variables
 git config --global user.email blah
 git config --global user.name "Jaan Altosaar"
@@ -55,6 +56,16 @@ sudo apt-get upgrade
 lsb_release -a  # then follow: https://gist.github.com/P7h/91e14096374075f5316e
 sudo apt-get install tmux-next=2.3~20161117~bzr3621+20-1ubuntu1~ppa0~ubuntu14.04.1	# get this from https://launchpad.net/~pi-rho/+archive/ubuntu/dev
 sudo locale-gen "en_US.UTF-8"
+```
+
+In vim, install plugins with vundle:
+`git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+Then open vim, and type `:BundleInstall`.
+
+### Notes for mac setup
+```
+# better defaults for sierra+ https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+brew cask install spotify evernote simplenote dropbox vlc slack 1password skim caffeine mactex skype anaconda google-chrome alfred iterm2 flux spectacle rescuetime sublime-text macbreakz little-snitch nosleep
 ```
 
 Hiccups:
