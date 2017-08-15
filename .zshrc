@@ -18,6 +18,10 @@ alias ..="cd .."
 alias p="python $@"
 alias rs="rsync -az --progress $@"
 
+# zsh functions
+fpath=( ~/.zfunc "${fpath[@]}" )
+autoload -Uz stanmake
+
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -130,4 +134,3 @@ export POWERLINE_CONFIG_COMMAND=powerline-config
 export POWERLINE_COMMAND=powerline
 
 source ~/.experimentrc
-
