@@ -133,4 +133,5 @@ export LANGUAGE=en_US:en
 export POWERLINE_CONFIG_COMMAND=powerline-config
 export POWERLINE_COMMAND=powerline
 
+# for experiment, log directories
 source ~/.experimentrc
