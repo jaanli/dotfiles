@@ -39,7 +39,7 @@ windows:
       panes:
         - vim:
             - vim .
-        - #empty, run zsh
+        - source activate yumi
         - ipython:
             - ipython
           #- server: #bundle exec rails s

@@ -27,6 +27,7 @@ Bundle 'easymotion/vim-easymotion'
 Bundle 'saltstack/salt-vim'
 Bundle 'valloric/YouCompleteMe'
 Plugin 'avakhov/vim-yaml'
+Plugin 'vim-syntastic/syntastic'
 
 
 " Google code formatting plugin
@@ -75,6 +76,9 @@ autocmd BufRead,BufNewFile *.stan set syntax=cpp
 " copy to mac system clipboard
 set clipboard=unnamed
 
+
+" for mypy static analysis of python files
+let g:syntastic_python_checkers = ['mypy']
 
 " for ctrl p. need to run `:helptags ~/.vim/bundle/ctrlp.vim/doc` in vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
