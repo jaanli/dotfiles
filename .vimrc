@@ -3,18 +3,12 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
 Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'Shougo/neocomplete.vim'
-" Bundle 'scrooloose/syntastic'
 Bundle 'vim-airline/vim-airline'
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'ConradIrwin/vim-bracketed-paste'
@@ -32,6 +26,9 @@ Bundle 'benmills/vimux'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'lambdalisue/vim-pyenv'
+Bundle 'saltstack/salt-vim'
+Bundle 'valloric/YouCompleteMe'
+Plugin 'avakhov/vim-yaml'
 
 " Google code formatting plugin
 " Add maktaba and codefmt to the runtimepath.
@@ -53,7 +50,7 @@ Glaive codefmt plugin[mappings]
 
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto,stan,javascript AutoFormatBuffer clang-format
   autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType gn AutoFormatBuffer gn
@@ -67,18 +64,17 @@ filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 
-" old, for pathogen
-" syntax on
-" runtime bundle/vim-pathogen/autoload/pathogen.vim
-" call pathogen#infect()
-" call pathogen#infect('bundle/{}')
-
-filetype plugin indent on
 autocmd FileType python setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType stan setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType c setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType js setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2
+" autocmd FileType yml setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.stan set syntax=cpp
+
+" copy to mac system clipboard
+set clipboard=unnamed
 
 
 " for ctrl p. need to run `:helptags ~/.vim/bundle/ctrlp.vim/doc` in vim
@@ -87,6 +83,9 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " ignore case in search
 set ic
+
+" line numbers
+set number
 
 " save with one key
 map <F3> :w<CR>
@@ -104,12 +103,6 @@ set colorcolumn=80
 " strip trailing whitespace no save with vim better whitespace plugin
 autocmd BufWritePre * StripWhitespace
 
-" autocompletion. neocomplete requires vim-nox or vim compiled with lua
-" install: sudo apt-get install vim-nox on ubuntu
-let g:neocomplete#enable_at_startup = 1
-inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
-
 " Python-mode options
 " remove autocomplete python-mode help bar
 set completeopt=menu
@@ -121,8 +114,6 @@ let g:VimuxOrientation = "h"
 let g:VimuxHeight = "60"
 " Run the last comand
 map <F5> :call VimuxRunLastCommand()<CR>
-
-let g:neocomplete#enable_auto_select = 1
 
 " set space to leader
 nnoremap <SPACE> <Nop>
@@ -151,15 +142,3 @@ noremap <leader>0 :tablast<cr>
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
-
-" syntastic for pylint
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_python_checkers = ['pylint']
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_mode_map = { 'mode': 'passive' }

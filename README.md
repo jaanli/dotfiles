@@ -25,6 +25,7 @@ On a new computer:
 ssh-copy-id user@host
 # install zsh and other things
 sudo apt-get install zsh autojump keychain
+# brew install zsh-syntax-highlighting
 # set git variables
 git config --global user.email blah
 git config --global user.name "Jaan Altosaar"
@@ -60,6 +61,13 @@ sudo locale-gen "en_US.UTF-8"
 In vim, install plugins with vundle:
 `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 Then open vim, and type `:BundleInstall`.
+
+### Notes for mac setup
+```
+# better defaults for sierra+ https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+brew cask install spotify evernote simplenote dropbox vlc slack 1password skim caffeine mactex skype anaconda google-chrome alfred iterm2 flux spectacle rescuetime sublime-text macbreakz little-snitch nosleep
+```
+c.f. https://gist.github.com/altosaar/15b597c95644f665e0ef08346d701509
 
 Hiccups:
 * if the latest tmux/vim can't be installed (e.g. on AWS), oh-my-zsh autocompletion in tmux may fail for some themes/trailing dots
