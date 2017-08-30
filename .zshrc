@@ -114,14 +114,15 @@ then
 	alias clip="nc localhost 8377"
 	# Or, if you are running Clipper on a UNIX domain socket:
 	#alias clip="nc -U ~/.clipper.sock"
-elif [[ "$UID" == "0" ]];
+elif [[ "$USER" == "altosaar" ]];
 then
-	source /usr/share/autojump/autojump.zsh
+	[[ -s /home/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/altosaar/.autojump/etc/profile.d/autojump.sh
+	export PATH=$HOME/local/bin:$PATH
 fi
 
 # for managing ssh keys and not having to type in key pass all the time
-keychain id_rsa
-. ~/.keychain/`uname -n`-sh
+#keychain id_rsa
+#. ~/.keychain/`uname -n`-sh
 #eval $(keychain --eval --agents ssh id_rsa)
 
 bindkey -e
