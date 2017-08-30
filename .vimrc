@@ -30,6 +30,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'benmills/vimux'
 Bundle 'easymotion/vim-easymotion'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'lambdalisue/vim-pyenv'
 
 " Google code formatting plugin
 " Add maktaba and codefmt to the runtimepath.
@@ -58,7 +60,7 @@ augroup autoformat_settings
   autocmd FileType html,css,json AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
   " autocmd FileType python AutoFormatBuffer yapf
-  autocmd FileType python AutoFormatBuffer autopep8
+  " autocmd FileType python AutoFormatBuffer autopep8
 augroup END
 
 filetype plugin indent on    " required
