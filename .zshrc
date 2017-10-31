@@ -18,6 +18,10 @@ alias ..="cd .."
 alias p="python $@"
 alias rs="rsync -az --progress $@"
 
+# zsh functions
+fpath=( ~/.zfunc "${fpath[@]}" )
+autoload -Uz stanmake
+
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -78,21 +82,23 @@ export EDITOR="vim"
 
 
 
-if [[ "$USER" == "jaanaltosaar" ]];
+if [[ "$USER" == "jaan" ]];
 then
-<<<<<<< HEAD
 	. /usr/share/autojump/autojump.sh
-=======
 	## NB: this can break brew install vim --with-lua (may need to comment)
 	# because it symlinks python to python3! and homebrew needs python2.7
 	export PATH="/usr/local/anaconda3/bin:$PATH"
->>>>>>> e72a1d1005702099c35733a96695ee8bd5ecd4d6
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 	# export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 	# for rbenv, ruby, jekyll
 	if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+	# for managing ssh keys and not having to type in key pass all the time
+	# keychain id_rsa
+	#. ~/.keychain/`uname -n`-sh
+	eval $(keychain --eval --agents ssh id_rsa)
+	export HOMEBREW_GITHUB_API_TOKEN=fb12a41765ed8f38139d30b2a61e1eb21c5f45bf
 elif [[ "$USER" == "jaan" ]];
 then
 	. /usr/share/autojump/autojump.sh
@@ -117,13 +123,10 @@ then
 	export PATH="/home/waldorf/altosaar/anaconda3/bin:$PATH"
 elif [[ "$UID" == "0" ]];
 then
-	source /usr/share/autojump/autojump.zsh
+	[[ -s /home/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/altosaar/.autojump/etc/profile.d/autojump.sh
+	export PATH=$HOME/local/bin:$PATH
 fi
 
-# for managing ssh keys and not having to type in key pass all the time
-keychain id_rsa
-. ~/.keychain/`uname -n`-sh
-#eval $(keychain --eval --agents ssh id_rsa)
 
 bindkey -e
 bindkey '^[[1;9C' forward-word
@@ -137,5 +140,5 @@ export LANGUAGE=en_US:en
 export POWERLINE_CONFIG_COMMAND=powerline-config
 export POWERLINE_COMMAND=powerline
 
+# for experiment, log directories
 source ~/.experimentrc
-
