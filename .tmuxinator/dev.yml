@@ -1,7 +1,7 @@
 # ~/.tmuxinator/dev.yml
 
 name: dev
-root: ~/Dropbox/100_projects/recemb/src/yumi
+root: /Users/jaan/Dropbox/100_projects/recemb/src/deep-exponential-families
 
 # Optional tmux socket
 # socket_name: foo
@@ -41,6 +41,7 @@ windows:
             - vim .
         - source activate yumi
         - ipython:
-            - ipython
+          - source activate yumi
+          - ipython
           #- server: #bundle exec rails s
     #- logs: tail -f log/development.log

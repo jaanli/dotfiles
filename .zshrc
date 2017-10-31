@@ -82,20 +82,23 @@ export EDITOR="vim"
 
 
 
-if [[ "$USER" == "jaanaltosaar" ]];
+if [[ "$USER" == "jaan" ]];
 then
 	## NB: this can break brew install vim --with-lua (may need to comment)
 	# because it symlinks python to python3! and homebrew needs python2.7
 	export PATH="/usr/local/anaconda3/bin:$PATH"
-	# export PATH=/Users/jaanaltosaar/anaconda2/bin:$PATH
+	# export PATH=/Users/jaan/anaconda2/bin:$PATH
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 	# export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 	# for rbenv, ruby, jekyll
 	if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-	# for dynet
-	#export DYLD_LIBRARY_PATH=/usr/local/anaconda3/lib:$DYLD_LIBRARY_PATH
+	# for managing ssh keys and not having to type in key pass all the time
+	# keychain id_rsa
+	#. ~/.keychain/`uname -n`-sh
+	eval $(keychain --eval --agents ssh id_rsa)
+	export HOMEBREW_GITHUB_API_TOKEN=fb12a41765ed8f38139d30b2a61e1eb21c5f45bf
 elif [[ "$USER" == "jaan" ]];
 then
 	. /usr/share/autojump/autojump.sh
@@ -120,10 +123,6 @@ then
 	export PATH=$HOME/local/bin:$PATH
 fi
 
-# for managing ssh keys and not having to type in key pass all the time
-#keychain id_rsa
-#. ~/.keychain/`uname -n`-sh
-#eval $(keychain --eval --agents ssh id_rsa)
 
 bindkey -e
 bindkey '^[[1;9C' forward-word
