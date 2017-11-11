@@ -25,7 +25,6 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'benmills/vimux'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'davidhalter/jedi-vim'
-" Bundle 'lambdalisue/vim-pyenv'
 Bundle 'saltstack/salt-vim'
 " To install YouCompleteMe on mac:
 " brew install vim
@@ -33,8 +32,11 @@ Bundle 'saltstack/salt-vim'
 " /usr/bin/python install.py
 Bundle 'valloric/YouCompleteMe'
 Plugin 'avakhov/vim-yaml'
-" Plugin 'vim-syntastic/syntastic'
 Plugin 'w0rp/ale'
+Plugin 'wikitopian/hardmode'
+
+" Hardmode always
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 " Ale options
 let g:ale_sign_column_always = 1
