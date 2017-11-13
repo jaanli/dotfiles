@@ -117,14 +117,15 @@ then
 	alias clip="nc localhost 8377"
 	# Or, if you are running Clipper on a UNIX domain socket:
 	#alias clip="nc -U ~/.clipper.sock"
-elif [[ "$USER" == "altosaar" ]];
+elif [[ "$HOST" == "waldorf" ]] || [[ "$HOST" == "statler" ]];
 then
 	[[ -s /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh
 	export PATH="/home/waldorf/altosaar/anaconda3/bin:$PATH"
+	export PATH="/home/waldorf/altosaar/local/bin:$PATH"
 elif [[ "$UID" == "0" ]];
 then
 	[[ -s /home/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/altosaar/.autojump/etc/profile.d/autojump.sh
-	export PATH=$HOME/local/bin:$PATH
+	export PATH=$HOME/bin:$PATH
 fi
 
 

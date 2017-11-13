@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" to fix vim-sensible plugin breaking runtimepath
+syntax enable
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -25,7 +28,6 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'benmills/vimux'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'davidhalter/jedi-vim'
-" Bundle 'lambdalisue/vim-pyenv'
 Bundle 'saltstack/salt-vim'
 " To install YouCompleteMe on mac:
 " brew install vim
