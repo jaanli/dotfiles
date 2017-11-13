@@ -35,8 +35,11 @@ Bundle 'saltstack/salt-vim'
 " /usr/bin/python install.py
 Bundle 'valloric/YouCompleteMe'
 Plugin 'avakhov/vim-yaml'
-" Plugin 'vim-syntastic/syntastic'
 Plugin 'w0rp/ale'
+Plugin 'wikitopian/hardmode'
+
+" Hardmode always
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 " Ale options
 let g:ale_sign_column_always = 1
