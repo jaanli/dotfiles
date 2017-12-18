@@ -76,6 +76,7 @@ filetype plugin indent on    " required
 "filetype plugin on
 
 autocmd FileType python setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd BufRead wscript set filetype=python
 autocmd FileType stan setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType zshrc setlocal expandtab shiftwidth=1 softtabstop=2
