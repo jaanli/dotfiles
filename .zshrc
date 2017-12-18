@@ -84,10 +84,10 @@ export EDITOR="vim"
 
 if [[ "$USER" == "jaan" ]];
 then
+	. /usr/share/autojump/autojump.sh
 	## NB: this can break brew install vim --with-lua (may need to comment)
 	# because it symlinks python to python3! and homebrew needs python2.7
 	export PATH="/usr/local/anaconda3/bin:$PATH"
-	# export PATH=/Users/jaan/anaconda2/bin:$PATH
 	alias rf="realpath $@"
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 	# export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
@@ -117,10 +117,15 @@ then
 	alias clip="nc localhost 8377"
 	# Or, if you are running Clipper on a UNIX domain socket:
 	#alias clip="nc -U ~/.clipper.sock"
-elif [[ "$USER" == "altosaar" ]];
+elif [[ "$HOST" == "waldorf" ]] || [[ "$HOST" == "statler" ]];
+then
+	[[ -s /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh
+	export PATH="/home/waldorf/altosaar/anaconda3/bin:$PATH"
+	export PATH="/home/waldorf/altosaar/local/bin:$PATH"
+elif [[ "$UID" == "0" ]];
 then
 	[[ -s /home/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/altosaar/.autojump/etc/profile.d/autojump.sh
-	export PATH=$HOME/local/bin:$PATH
+	export PATH=$HOME/bin:$PATH
 fi
 
 
