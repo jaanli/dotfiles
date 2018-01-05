@@ -132,6 +132,10 @@ set completeopt=menu
 " Disable pylint checking every save
 let g:pymode_lint_write = 0
 
+" needed for youcompleteme
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+set encoding=utf-8
+
 " for vimux
 let g:VimuxOrientation = "h"
 let g:VimuxHeight = "60"
@@ -142,6 +146,7 @@ map <F5> :call VimuxRunLastCommand()<CR>
 nnoremap <SPACE> <Nop>
 " let mapleader = " "
 let mapleader = "\<Space>"
+
 
 nnoremap <leader><shift> <Nop>
 
