@@ -3,5 +3,8 @@
     "cm_config": {
       "indentUnit": 2
     }
+  },
+  "Notebook": {
+    "Header": false
   }
 }
