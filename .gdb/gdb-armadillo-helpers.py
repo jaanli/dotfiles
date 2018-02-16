@@ -5,37 +5,50 @@ import os
 import gdb
 import numpy as np
 
-class PrintArma(gdb.Command):
-  """Print an Armadillo matrix."""
+class ArmaApply(gdb.Command):
   def __init__(self):
-    gdb.Command.__init__(self, "print-arma", gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, True)
+    gdb.Command.__init__(self, "arma-apply", gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, True)
 
   def invoke(self, arg, from_tty):
     arg_list = gdb.string_to_argv(arg)
-    if len(arg_list) == 0 or len(arg_list) > 1:
-      print("Error! Usage: print-arma pointer_to_arma_matrix")
-      return
+    if len(arg_list) == 1 or len(arg_list) == 2:
+      return self._apply_function(*arg_list)
     else:
-      self._print_matrix(arg)
+      print("Error! Usage: arma-apply pointer np.function" )
+      return
 
-  def _print_matrix(self, ptr):
-    ptr = str(ptr)
-    n_rows = execute_output("print %s->n_rows" % ptr)
-    n_cols = execute_output("print %s->n_cols" % ptr)
-    matrix_string = execute_output("print (*%s->mem)@%s@%s" % (ptr, n_rows, n_cols))
-    for k, v in [("{", "["), ("}", "]")]:
-      matrix_string = matrix_string.replace(k, v)
-    matrix_string = np.array(eval(matrix_string)).T
-    print(matrix_string)
+  def _apply_function(self, pointer, function_string=None):
+    """Apply a function to an Armadillo array pointer. Print by default."""
+    array = get_array(pointer)
+    # print(pointer, "array of shape: ", array.shape)
+    if function_string is None:
+      print(array)
+    else:
+      function = eval(function_string)
+      print(function(array))
 
-##
-# Execute a GDB command with output capture
-#
-# @param command (str) GDB command
-#
-# @return command output (str)
-#
+def get_array(pointer):
+  pointer = str(pointer)
+  n_rows = execute_output("print %s->n_rows" % pointer)
+  n_cols = execute_output("print %s->n_cols" % pointer)
+  gdb.execute("set print repeats 0")
+  gdb.execute("set print elements 0")
+  gdb.execute("set pagination off")
+  array_string = execute_output("print (*%s->mem)@%s@%s" % (pointer, n_rows, n_cols))
+  for k, v in [("{", "["), ("}", "]")]:
+    array_string = array_string.replace(k, v)
+  return np.array(eval(array_string)).T
+
+ArmaApply()
+
 def execute_output(command):
+  ##
+  # Execute a GDB command with output capture
+  #
+  # @param command (str) GDB command
+  #
+  # @return command output (str)
+  #
 
   # create temporary file for the output
   filename = os.getenv('HOME') + os.sep + 'gdb_output_' + str(os.getpid())
@@ -68,5 +81,3 @@ def execute_output(command):
   # output = output.splitlines()
 
   return output.split("=")[1][1:]
-
-PrintArma()
