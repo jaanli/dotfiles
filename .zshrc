@@ -135,6 +135,10 @@ elif [[ "$UID" == "0" ]];
 then
 	[[ -s /home/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/altosaar/.autojump/etc/profile.d/autojump.sh
 	export PATH=$HOME/bin:$PATH
+elif [[ "$HOST" == "tiger1" ]];
+then
+	export PATH=/home/altosaar/bin:$PATH
+	eval $(keychain --eval --agents ssh id_rsa)
 fi
 
 
