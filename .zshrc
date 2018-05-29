@@ -80,25 +80,34 @@ export TERM="xterm-256color"
 # for vim everywhere
 export EDITOR="vim"
 
-
-
-if [[ "$USER" == "jaan" ]];
+if [[ "$SHORT_HOST" == "siilipoiss" ]];
 then
 	. /usr/share/autojump/autojump.sh
+	export GOPATH=$HOME/go
+	export PATH=$PATH:$GOPATH/bin
 	## NB: this can break brew install vim --with-lua (may need to comment)
 	# because it symlinks python to python3! and homebrew needs python2.7
 	export PATH="/usr/local/anaconda3/bin:$PATH"
 	alias rf="realpath $@"
+	source ~/.secrets
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 	# export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	eval $(docker-machine env default)
 	# for rbenv, ruby, jekyll
 	if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 	# for managing ssh keys and not having to type in key pass all the time
 	# keychain id_rsa
 	#. ~/.keychain/`uname -n`-sh
 	eval $(keychain --eval --agents ssh id_rsa)
-	export HOMEBREW_GITHUB_API_TOKEN=fb12a41765ed8f38139d30b2a61e1eb21c5f45bf
+
+	# for boost from https://dakota.sandia.gov/content/mac-os-x
+	export DYLD_LIBRARY_PATH=$HOME/local/boost-1.55/lib:$DYLD_LIBRARY_PATH
+	export LD_LIBRARY_PATH=$HOME/local/boost-1.55/lib:$DYLD_LIBRARY_PATH
+
+	# for arduino
+	export SKETCHBOOK_DIR=$HOME/Documents/Arduino
+
 elif [[ "$USER" == "jaan" ]];
 then
 	. /usr/share/autojump/autojump.sh
@@ -130,6 +139,8 @@ fi
 
 
 bindkey -e
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 
@@ -143,3 +154,4 @@ export POWERLINE_COMMAND=powerline
 
 # for experiment, log directories
 source ~/.experimentrc
+
