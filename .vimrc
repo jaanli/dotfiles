@@ -32,14 +32,17 @@ Bundle 'saltstack/salt-vim'
 " To install YouCompleteMe on mac:
 " brew install vim
 " cd ~/.vim/bundle/YouCompleteMe
+" IMPORTANT: need to run system python. may need to do `brew install vim --with-override-system-vi`
 " /usr/bin/python install.py
 Bundle 'valloric/YouCompleteMe'
 Plugin 'avakhov/vim-yaml'
 Plugin 'w0rp/ale'
-Plugin 'wikitopian/hardmode'
+" Plugin 'justinmk/vim-sneak'
+" let g:sneak#label = 1
+" Plugin 'wikitopian/hardmode'
 
 " Hardmode always
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 " Ale options
 let g:ale_sign_column_always = 1
