@@ -39,3 +39,4 @@
  '(python-indent 2))
 
 (load-theme 'solarized t)
+(setq frame-background-mode 'dark)
