@@ -82,11 +82,3 @@ sudo add-apt-repository ppa:pi-rho/dev
 sudo apt-get update
 sudo apt-get install tmux=2.0-1~ppa1~t
 ```
-
-### Managing plugins with pathogen and tmux plugin manager
-To install a plugin, we need to tell git that it is a submodule. Adding a folder recursively that contains git repositories (submodules) will not work. After adding all submodules/plugins we need, we can pull them all at once. The dotfiles repo then needs to be cloned with the `--recursive` option, or we can run `git submodule update --init` as above.
-```
-cd ~/.vim/bundle
-config submodule add https://github.com/tpope/vim-repeat
-config submodule foreach git pull
-```
