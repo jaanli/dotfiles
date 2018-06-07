@@ -2,6 +2,9 @@
 
 Modified from [Atlassian and Hacker News](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/) to work with submodules in github.
 
+## Overview of new mac setup / development environment
+https://gist.github.com/altosaar/15b597c95644f665e0ef08346d701509
+
 Initial setup:
 ```
 git init --bare $HOME/.cfg
