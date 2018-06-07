@@ -26,17 +26,30 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-(setq ein:jupyter-default-server-command "jupyter --no-browser")
-
 (require 'helm-config)
+(helm-mode 1)
 
 (ido-mode 1)
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
 
 (custom-set-variables
- '(python-guess-indent nil)
- '(python-indent 2))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (helm ein color-theme-solarized)))
+ ;; set python mode indentation to 2 spaces
+ '(python-indent-guess-indent-offset nil)
+ '(python-indent-offset 2))
 
 (load-theme 'solarized t)
 (setq frame-background-mode 'dark)
+
+(menu-bar-mode -1)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
