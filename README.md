@@ -2,6 +2,11 @@
 
 Modified from [Atlassian and Hacker News](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/) to work with submodules in github.
 
+### Overview of new mac setup / development environment
+https://gist.github.com/altosaar/15b597c95644f665e0ef08346d701509
+
+---
+
 Initial setup:
 ```
 git init --bare $HOME/.cfg
@@ -61,29 +66,3 @@ sudo locale-gen "en_US.UTF-8"
 In vim, install plugins with vundle:
 `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 Then open vim, and type `:BundleInstall`.
-
-### Notes for mac setup
-```
-# better defaults for sierra+ https://github.com/mathiasbynens/dotfiles/blob/master/.macos
-brew cask install spotify evernote simplenote dropbox vlc slack 1password skim caffeine mactex skype anaconda google-chrome alfred iterm2 flux spectacle rescuetime sublime-text macbreakz little-snitch nosleep
-```
-c.f. https://gist.github.com/altosaar/15b597c95644f665e0ef08346d701509
-
-Hiccups:
-* if the latest tmux/vim can't be installed (e.g. on AWS), oh-my-zsh autocompletion in tmux may fail for some themes/trailing dots
-* installing tmux:
-```
-sudo apt-get update
-sudo apt-get install python-software-properties software-properties-common
-sudo add-apt-repository ppa:pi-rho/dev
-sudo apt-get update
-sudo apt-get install tmux=2.0-1~ppa1~t
-```
-
-### Managing plugins with pathogen and tmux plugin manager
-To install a plugin, we need to tell git that it is a submodule. Adding a folder recursively that contains git repositories (submodules) will not work. After adding all submodules/plugins we need, we can pull them all at once. The dotfiles repo then needs to be cloned with the `--recursive` option, or we can run `git submodule update --init` as above.
-```
-cd ~/.vim/bundle
-config submodule add https://github.com/tpope/vim-repeat
-config submodule foreach git pull
-```
