@@ -70,7 +70,7 @@ Then open vim, and type `:BundleInstall`.
 # better defaults for sierra+ https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 brew cask install spotify evernote simplenote dropbox vlc slack 1password skim caffeine mactex skype anaconda google-chrome alfred iterm2 flux spectacle rescuetime sublime-text macbreakz little-snitch nosleep
 ```
-c.f. https://gist.github.com/altosaar/15b597c95644f665e0ef08346d701509
+--
 
 Hiccups:
 * if the latest tmux/vim can't be installed (e.g. on AWS), oh-my-zsh autocompletion in tmux may fail for some themes/trailing dots
