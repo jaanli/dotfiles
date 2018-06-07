@@ -65,8 +65,13 @@
 (helm-mode 1)
 ; use helm to navigate kill ring 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+; use helm-mode to search for commands
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 ; scroll to bottom on output
 ; may need to disable for sane error navigation in future
 (setq comint-scroll-to-bottom-on-output t)
 (setq comint-move-point-for-output t)
+
+;; change all prompts to y or n
+(fset 'yes-or-no-p 'y-or-n-p)

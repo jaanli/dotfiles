@@ -126,6 +126,8 @@ then
 	alias clip="nc localhost 8377"
 	# Or, if you are running Clipper on a UNIX domain socket:
 	#alias clip="nc -U ~/.clipper.sock"
+	# alias for readlink (brew install coreutils)
+	alias readlink=greadlink
 elif [[ "$HOST" == "waldorf" ]] || [[ "$HOST" == "statler" ]];
 then
 	[[ -s /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh
