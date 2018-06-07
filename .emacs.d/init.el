@@ -26,9 +26,7 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-(require 'helm-config)
-(helm-mode 1)
-
+; use ido for files
 (ido-mode 1)
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
@@ -43,9 +41,11 @@
  '(python-indent-guess-indent-offset nil)
  '(python-indent-offset 2))
 
+; use dark solarized color scheme
 (load-theme 'solarized t)
 (setq frame-background-mode 'dark)
 
+; disable menubar
 (menu-bar-mode -1)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -53,3 +53,20 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+; use ipython with autoreload for python interpreter
+(setq
+   python-shell-interpreter "ipython"
+   python-shell-interpreter-args "--profile=dev --simple-prompt"
+)
+
+; helm configuration
+(require 'helm-config)
+(helm-mode 1)
+; use helm to navigate kill ring 
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+
+; scroll to bottom on output
+; may need to disable for sane error navigation in future
+(setq comint-scroll-to-bottom-on-output t)
+(setq comint-move-point-for-output t)
