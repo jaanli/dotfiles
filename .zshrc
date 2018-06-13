@@ -91,7 +91,7 @@ then
 	alias rf="realpath $@"
 	source ~/.secrets
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-	# export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
+	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 	eval $(docker-machine env default)
 	# for rbenv, ruby, jekyll

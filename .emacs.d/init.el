@@ -17,7 +17,7 @@
 ; activate all the packages
 (package-initialize)
 
-; fetch the list of packages available 
+; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -36,8 +36,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (helm ein color-theme-solarized)))
- ;; set python mode indentation to 2 spaces
+ '(package-selected-packages
+   (quote
+    (ein color-theme-solarized)))
  '(python-indent-guess-indent-offset nil)
  '(python-indent-offset 2))
 
@@ -63,7 +64,7 @@
 ; helm configuration
 (require 'helm-config)
 (helm-mode 1)
-; use helm to navigate kill ring 
+; use helm to navigate kill ring
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 ; use helm-mode to search for commands
 (global-set-key (kbd "M-x") 'helm-M-x)
