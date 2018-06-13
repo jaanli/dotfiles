@@ -1,7 +1,7 @@
 # ~/.tmuxinator/dev.yml
 
 name: dev
-root: /Users/jaan/Dropbox/100_projects/recemb/src/deep-exponential-families
+root: /Users/jaan/Dropbox/100_projects/food_rec/src/deep-exponential-families
 
 # Optional tmux socket
 # socket_name: foo

@@ -32,14 +32,17 @@ Bundle 'saltstack/salt-vim'
 " To install YouCompleteMe on mac:
 " brew install vim
 " cd ~/.vim/bundle/YouCompleteMe
+" IMPORTANT: need to run system python. may need to do `brew install vim --with-override-system-vi`
 " /usr/bin/python install.py
 Bundle 'valloric/YouCompleteMe'
 Plugin 'avakhov/vim-yaml'
 Plugin 'w0rp/ale'
-Plugin 'wikitopian/hardmode'
+" Plugin 'justinmk/vim-sneak'
+" let g:sneak#label = 1
+" Plugin 'wikitopian/hardmode'
 
 " Hardmode always
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 " Ale options
 let g:ale_sign_column_always = 1
@@ -79,6 +82,7 @@ filetype plugin indent on    " required
 "filetype plugin on
 
 autocmd FileType python setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd BufRead wscript set filetype=python
 autocmd FileType stan setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType zshrc setlocal expandtab shiftwidth=1 softtabstop=2
@@ -131,6 +135,10 @@ set completeopt=menu
 " Disable pylint checking every save
 let g:pymode_lint_write = 0
 
+" needed for youcompleteme
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+set encoding=utf-8
+
 " for vimux
 let g:VimuxOrientation = "h"
 let g:VimuxHeight = "60"
@@ -141,6 +149,7 @@ map <F5> :call VimuxRunLastCommand()<CR>
 nnoremap <SPACE> <Nop>
 " let mapleader = " "
 let mapleader = "\<Space>"
+
 
 nnoremap <leader><shift> <Nop>
 

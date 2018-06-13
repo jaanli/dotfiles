@@ -51,12 +51,13 @@ ENV HOME /home/jaan
 WORKDIR /home/jaan
 
 # Setup for ssh onto github
-RUN mkdir -p $HOME/.ssh
-ADD id_rsa $HOME/.ssh/id_rsa
-ADD id_rsa.pub $HOME/.ssh/id_rsa.pub
-RUN sudo chown jaan:jaan $HOME/.ssh
-RUN sudo chmod 777 $HOME/.ssh/id_rsa
-RUN sudo chmod 777 $HOME/.ssh/id_rsa.pub
+# NB: id_rsa, id_rsa.pub must be in same directory as dockerfile!!!
+RUN mkdir -p /home/jaan/.ssh
+RUN chown -R jaan:jaan /home/jaan/.ssh
+ADD id_rsa /home/jaan/.ssh/id_rsa
+ADD id_rsa.pub /home/jaan/.ssh/id_rsa.pub
+RUN sudo chmod 777 /home/jaan/.ssh/id_rsa
+RUN sudo chmod 777 /home/jaan/.ssh/id_rsa.pub
 RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> $HOME/.ssh/config
 RUN ssh-keyscan -t rsa github.com 2>&1 >> $HOME/.ssh/known_hosts
 
@@ -69,8 +70,11 @@ RUN git config --global user.email jaan.altosaar@gmail.com && \
 # Clone dotfiles
 RUN git clone --bare git://github.com/altosaar/dotfiles.git $HOME/.cfg
 RUN echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.zshrc
-# need to run config submodule update --init from within docker
-# RUN /usr/bin/zsh -c "source $HOME/.zshrc"
+RUN source $HOME/.zshrc
+RUN rm $HOME/.zshrc
+RUN config checkout
+RUN config submodule update --init
+RUN /usr/bin/zsh -c "source $HOME/.zshrc"
 
 # vim
 RUN git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
