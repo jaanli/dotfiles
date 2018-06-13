@@ -82,7 +82,7 @@ export EDITOR="vim"
 
 
 
-if [[ "$USER" == "jaan" ]];
+if [[ "$HOST" == "siilipoiss.local" ]];
 then
 	. /usr/share/autojump/autojump.sh
 	## NB: this can break brew install vim --with-lua (may need to comment)
@@ -99,24 +99,11 @@ then
 	#. ~/.keychain/`uname -n`-sh
 	eval $(keychain --eval --agents ssh id_rsa)
 	export HOMEBREW_GITHUB_API_TOKEN=fb12a41765ed8f38139d30b2a61e1eb21c5f45bf
-elif [[ "$USER" == "jaan" ]];
+elif [[ "$HOST" == "beaker" ]];
 then
 	. /usr/share/autojump/autojump.sh
-	# Setup CUDA
-	export DYLD_LIBRARY_PATH=/usr/local/cuda-7.5/lib/:/usr/local/cuda-7.5/lib64/
-	export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib:/usr/local/cuda-7.5/lib64/
-	export CUDA_HOME=/usr/local/cuda-7.5
-	export PATH=$PATH:/usr/local/cuda-7.5/bin/
-	# Add my stuff
-	export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/lib/
-	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
-	# only let tensorflow see gpu:1
-	export CUDA_VISIBLE_DEVICES=1
-	# Configuration for ~/.bash_profile, ~/.zshrc etc:
-	# # Pipe anything into `clip` to forward it to Clipper
-	alias clip="nc localhost 8377"
-	# Or, if you are running Clipper on a UNIX domain socket:
-	#alias clip="nc -U ~/.clipper.sock"
+	alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+	export PATH=/home/jaan/miniconda3/bin:$PATH
 elif [[ "$HOST" == "waldorf" ]] || [[ "$HOST" == "statler" ]];
 then
 	[[ -s /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/waldorf/altosaar/.autojump/etc/profile.d/autojump.sh
