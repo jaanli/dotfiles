@@ -45,10 +45,10 @@ eval $(keychain --eval --agents ssh id_rsa)
 
 if [[ "$SHORT_HOST" == "siilipoiss" ]];
 then
-	export PATH="/usr/local/anaconda3/bin:$PATH"
 	source ~/.secrets
 	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
+	export PATH="/usr/local/anaconda3/bin:$PATH"
 	# alias for readlink (brew install coreutils)
 	alias readlink=greadlink
 elif [[ "$HOST" == "beaker" ]];
