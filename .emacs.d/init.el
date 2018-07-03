@@ -12,7 +12,7 @@
 
 ; list the packages you want
 (setq package-list
-      '(ein deft helm color-theme-solarized))
+      '(ein deft xclip helm auctex-latexmk color-theme-solarized))
 
 ; activate all the packages
 (package-initialize)
@@ -36,9 +36,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (deft ein color-theme-solarized)))
+ '(global-visual-line-mode t)
+ '(package-selected-packages
+   (quote
+    (auctex-latexmk xclip deft ein color-theme-solarized)))
  '(python-indent-guess-indent-offset nil)
- '(python-indent-offset 2))
+ '(python-indent-offset 2)
+ '(send-mail-function (quote mailclient-send-it)))
 
 ; use dark solarized color scheme
 (load-theme 'solarized t)
@@ -63,12 +67,11 @@
  ;; If there is more than one, they won't work right.
  )
 
-; use ipython with autoreload for python interpreter
-; issue with python interpreter - cannot use cd, ls commands?
-;; (setq
-;;    python-shell-interpreter "ipython"
-;;    python-shell-interpreter-args "--profile=dev --simple-prompt"
-;; )
+; allow copy-pasting to system clipboard
+(xclip-mode 1)
+
+; line wrapping
+(setq global-visual-line-mode 1)
 
 ; helm configuration
 (require 'helm-config)
@@ -78,13 +81,65 @@
 ; use helm-mode to search for commands
 (global-set-key (kbd "M-x") 'helm-M-x)
 
-; scroll to bottom on output
-; may need to disable for sane error navigation in future
+;; ; scroll to bottom on output
+;; ; may need to disable for sane error navigation in future
 ;; (setq comint-scroll-to-bottom-on-output t)
 ;; (setq comint-move-point-for-output t)
 
 ;; change all prompts to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; python path for anaconda python
-(setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
+; use ipython with autoreload for python interpreter
+(setq
+ python-shell-interpreter "ipython"
+ python-shell-interpreter-args "--simple-prompt --classic --nosep"
+ ; use custom profile for autoreload magic
+ ;python-shell-interpreter-args "--profile=dev --simple-prompt --classic --nosep"
+)
+
+;; from http://www.wangzerui.com/2017/02/20/setting-up-a-nice-environment-for-latex-on-macos/
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; setting up latex mode
+;; Forward/inverse search with evince using D-bus.
+;; Installation:
+;; M-x package-install RET auctex RET
+;; Tells emacs where to find LaTeX.
+(let ((my-path (expand-file-name "/usr/local/bin:/usr/local/texlive/2018/bin/x86_64-darwin")))
+(setenv "PATH" (concat my-path ":" (getenv "PATH")))
+(add-to-list 'exec-path my-path)) 
+
+;; Auctex Settings
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+(setq Tex-PDF-mode t)
+
+;; https://gist.github.com/stefano-meschiari/9217695
+;; Use Skim as viewer, enable source <-> PDF sync
+;; make latexmk available via C-c C-c
+;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+(add-hook 'LaTeX-mode-hook
+(lambda ()
+  (push
+   '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+     :help "Run latexmk on file")
+    TeX-command-list)))
+(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+
+;; use Skim as default pdf viewer
+;; Skim's displayline is used for forward search (from .tex to .pdf)
+;; option -b highlights the current line; option -g opens Skim in the background  
+(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+(setq TeX-view-program-list
+      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
+(custom-set-variables
+     '(TeX-source-correlate-method 'synctex)
+     '(TeX-source-correlate-mode t)
+     '(TeX-source-correlate-start-server t))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
