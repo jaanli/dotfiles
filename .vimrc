@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" to fix vim-sensible plugin breaking runtimepath
+syntax enable
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -25,11 +28,24 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'benmills/vimux'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'davidhalter/jedi-vim'
-Bundle 'lambdalisue/vim-pyenv'
 Bundle 'saltstack/salt-vim'
+" To install YouCompleteMe on mac:
+" brew install vim
+" cd ~/.vim/bundle/YouCompleteMe
+" IMPORTANT: need to run system python. may need to do `brew install vim --with-override-system-vi`
+" /usr/bin/python install.py
 Bundle 'valloric/YouCompleteMe'
 Plugin 'avakhov/vim-yaml'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
+" Plugin 'justinmk/vim-sneak'
+" let g:sneak#label = 1
+" Plugin 'wikitopian/hardmode'
+
+" Hardmode always
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+
+" Ale options
+let g:ale_sign_column_always = 1
 
 " Google code formatting plugin
 " Add maktaba and codefmt to the runtimepath.
@@ -58,7 +74,7 @@ augroup autoformat_settings
   autocmd FileType html,css,json AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
   " autocmd FileType python AutoFormatBuffer yapf
-  " autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType python AutoFormatBuffer autopep8
 augroup END
 
 filetype plugin indent on    " required
@@ -66,8 +82,10 @@ filetype plugin indent on    " required
 "filetype plugin on
 
 autocmd FileType python setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd BufRead wscript set filetype=python
 autocmd FileType stan setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType zshrc setlocal expandtab shiftwidth=1 softtabstop=2
 autocmd FileType c setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType js setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2
@@ -97,11 +115,15 @@ map <F3> :w<CR>
 " toggle paste mode
 set pastetoggle=<F2>
 
+" highlight current line
+set cursorline
+
 " remove status line
 set nosmd
 
 " 80 char ruler
-set colorcolumn=80
+set colorcolumn=81
+" set highlight colorcolumn ctermbg=7
 
 
 " strip trailing whitespace no save with vim better whitespace plugin
@@ -113,6 +135,10 @@ set completeopt=menu
 " Disable pylint checking every save
 let g:pymode_lint_write = 0
 
+" needed for youcompleteme
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+set encoding=utf-8
+
 " for vimux
 let g:VimuxOrientation = "h"
 let g:VimuxHeight = "60"
@@ -123,6 +149,7 @@ map <F5> :call VimuxRunLastCommand()<CR>
 nnoremap <SPACE> <Nop>
 " let mapleader = " "
 let mapleader = "\<Space>"
+
 
 nnoremap <leader><shift> <Nop>
 
