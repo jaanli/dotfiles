@@ -97,7 +97,7 @@ set clipboard=unnamed
 
 
 " for mypy static analysis of python files
-let g:syntastic_python_checkers = ['mypy']
+" let g:syntastic_python_checkers = ['mypy']
 
 " for ctrl p. need to run `:helptags ~/.vim/bundle/ctrlp.vim/doc` in vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
