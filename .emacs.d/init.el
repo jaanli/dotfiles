@@ -10,9 +10,12 @@
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
+;; needed for company-anaconda
+(require 'rx)
+
 ; list the packages you want
 (setq package-list
-      '(ein deft xclip helm auctex-latexmk color-theme-solarized))
+      '(ein deft xclip helm company company-anaconda anaconda-mode auctex-latexmk color-theme-solarized))
 
 ; activate all the packages
 (package-initialize)
@@ -36,10 +39,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-source-correlate-method (quote synctex))
+ '(TeX-source-correlate-mode t)
+ '(TeX-source-correlate-start-server t)
  '(global-visual-line-mode t)
  '(package-selected-packages
    (quote
-    (auctex-latexmk xclip deft ein color-theme-solarized)))
+    (company helm anaconda-mode auctex-latexmk xclip deft ein color-theme-solarized)))
  '(python-indent-guess-indent-offset nil)
  '(python-indent-offset 2)
  '(send-mail-function (quote mailclient-send-it)))
@@ -89,13 +95,49 @@
 ;; change all prompts to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-; use ipython with autoreload for python interpreter
+;; python settings
+;; use ipython with autoreload for python interpreter
+(require 'python)
 (setq
  python-shell-interpreter "ipython"
  python-shell-interpreter-args "--simple-prompt --classic --nosep"
  ; use custom profile for autoreload magic
  ;python-shell-interpreter-args "--profile=dev --simple-prompt --classic --nosep"
 )
+
+;; (setq python-shell-interpreter "jupyter"
+;;       python-shell-interpreter-args "console --simple-prompt"
+      ;; python-shell-prompt-detect-failure-warning nil)
+;; (add-to-list 'python-shell-completion-native-disabled-interpreters
+;;              "jupyter")
+
+;; set python to utf-8
+(setenv "PYTHONIOENCODING" "utf-8")
+(setenv "LANG" "en_US.UTF-8")
+(setenv "LC_ALL" "en_US.UTF-8")
+(setenv "LC_CTYPE" "en_US.UTF-8")
+
+;(add-hook 'python-mode-hook 'jedi:setup)
+;(setq jedi:complete-on-dot t)
+;; autocomplete
+(add-hook 'python-mode-hook 'anaconda-mode)
+
+;; options for company autocomplete dropdown package
+(eval-after-load "company"
+  '(add-to-list 'company-backends 'company-anaconda))
+(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+
+;; use eldoc for printing function arguments in status bar
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+
+;; set line wrapping column default
+(setq-default fill-column 80)
+
+;; sentences end with single space
+(setq sentence-end-double-space nil)
 
 ;; from http://www.wangzerui.com/2017/02/20/setting-up-a-nice-environment-for-latex-on-macos/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -116,6 +158,7 @@
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 (setq reftex-plug-into-AUCTeX t)
 (setq Tex-PDF-mode t)
 
@@ -133,13 +176,27 @@
 
 ;; use Skim as default pdf viewer
 ;; Skim's displayline is used for forward search (from .tex to .pdf)
-;; option -b highlights the current line; option -g opens Skim in the background  
+;; option -b highlights the current line; option -g opens Skim in the background
+;; make sure that ~/.latexmkrc has -synctex=1 option,
+;; and that auto-updating is unchecked in skim preferences
 (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
 (setq TeX-view-program-list
-      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -r -b -g %n %o %b")))
 
-(custom-set-variables
-     '(TeX-source-correlate-method 'synctex)
-     '(TeX-source-correlate-mode t)
-     '(TeX-source-correlate-start-server t))
+;; start emacs in server mode so that skim can talk to it
+(server-start)
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+; set PATH, because we don't load .bashrc
+; function from https://gist.github.com/jakemcc/3887459
+(defun set-exec-path-from-shell-PATH ()
+  (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+  (let ((path-from-shell (shell-command-to-string "$SHELL -i -c 'echo -n $PATH'")))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(if window-system (set-exec-path-from-shell-PATH))
