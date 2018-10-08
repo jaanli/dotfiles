@@ -15,7 +15,8 @@
 
 ; list the packages you want
 (setq package-list
-      '(ein deft xclip helm company company-anaconda anaconda-mode auctex-latexmk color-theme-solarized))
+      '(ein deft xclip helm company company-anaconda anaconda-mode auctex-latexmk
+	    yasnippet color-theme-solarized))
 
 ; activate all the packages
 (package-initialize)
@@ -45,7 +46,7 @@
  '(global-visual-line-mode t)
  '(package-selected-packages
    (quote
-    (company helm anaconda-mode auctex-latexmk xclip deft ein color-theme-solarized)))
+    (yasnippet company helm anaconda-mode auctex-latexmk xclip deft ein color-theme-solarized)))
  '(python-indent-guess-indent-offset nil)
  '(python-indent-offset 2)
  '(send-mail-function (quote mailclient-send-it)))
@@ -139,6 +140,9 @@
 ;; sentences end with single space
 (setq sentence-end-double-space nil)
 
+;; autosave all files
+(setq autosave-visited-mode 1)
+
 ;; from http://www.wangzerui.com/2017/02/20/setting-up-a-nice-environment-for-latex-on-macos/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; setting up latex mode
@@ -162,6 +166,36 @@
 (setq reftex-plug-into-AUCTeX t)
 (setq Tex-PDF-mode t)
 
+;; Reftex and Cleveref
+(eval-after-load
+    "latex"
+  '(TeX-add-style-hook
+    "cleveref"
+    (lambda ()
+      (if (boundp 'reftex-ref-style-alist)
+      (add-to-list
+       'reftex-ref-style-alist
+       '("Cleveref" "cleveref"
+         (("\\cref" ?c) ("\\Cref" ?C) ("\\cpageref" ?d) ("\\Cpageref" ?D)))))
+      (reftex-ref-style-activate "Cleveref")
+      (TeX-add-symbols
+       '("cref" TeX-arg-ref)
+       '("Cref" TeX-arg-ref)
+       '("cpageref" TeX-arg-ref)
+       '("Cpageref" TeX-arg-ref)))))
+
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (turn-on-reftex)
+            (define-key LaTeX-mode-map (kbd "C-c l") 'reftex-cleveref-Cref)
+            (visual-line-mode t)
+	    (define-key LaTeX-mode-map (kbd "C-c [") 'reftex-citep)
+            t)
+	  )
+
+;; Change default equation behavior of reftex
+(setq reftex-label-alist '(AMSTeX))
+
 ;; https://gist.github.com/stefano-meschiari/9217695
 ;; Use Skim as viewer, enable source <-> PDF sync
 ;; make latexmk available via C-c C-c
@@ -179,19 +213,40 @@
 ;; option -b highlights the current line; option -g opens Skim in the background
 ;; make sure that ~/.latexmkrc has -synctex=1 option,
 ;; and that auto-updating is unchecked in skim preferences
-(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+;(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+;; (setq TeX-view-program-list
+;;       '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -r -b -g %n %o %b")))
+
+;; Latex
+  ;; Use Skim on macOS to utilize synctex.
+  ;; Confer https://mssun.me/blog/spacemacs-and-latex.html
+(setq TeX-source-correlate-mode t)
+(setq TeX-source-correlate-start-server t)
+(setq TeX-source-correlate-method 'synctex)
+;; AucTex recognizes some standard viewers, but the default view command
+;; does not appear to sync.
 (setq TeX-view-program-list
-      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -r -b -g %n %o %b")))
+      '(("Okular" "okular --unique %o#src:%n`pwd`/./%b")
+        ("Skim" "displayline -b -g %n %o %b")
+        ("Zathura"
+         ("zathura %o"
+          (mode-io-correlate
+           " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\"")))))
+(setq TeX-view-program-selection '((output-pdf "Skim")))
 
 ;; start emacs in server mode so that skim can talk to it
 (server-start)
 
+;; fix non-ASCII input in GUI mode
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'super)
 
+(setq mac-option-key-is-meta nil)
+(setq mac-command-key-is-meta t)
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-; set PATH, because we don't load .bashrc
+; Set PATH, because we don't load .bashrc
 ; function from https://gist.github.com/jakemcc/3887459
 (defun set-exec-path-from-shell-PATH ()
   (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
@@ -200,3 +255,12 @@
     (setq exec-path (split-string path-from-shell path-separator))))
 
 (if window-system (set-exec-path-from-shell-PATH))
+
+;; yasnippet config
+(add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;; global font size
+(set-face-attribute 'default nil :height 120)
