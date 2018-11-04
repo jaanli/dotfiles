@@ -30,6 +30,9 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; for normal desktop command+tab behavior
+(menu-bar-mode t)
+
 ; use ido for files
 (ido-mode 1)
 (setq ido-everywhere t)
@@ -40,6 +43,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-engine (quote xetex))
  '(TeX-source-correlate-method (quote synctex))
  '(TeX-source-correlate-mode t)
  '(TeX-source-correlate-start-server t)
@@ -203,23 +207,15 @@
 (add-hook 'LaTeX-mode-hook
 (lambda ()
   (push
-   '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-     :help "Run latexmk on file")
+;   '("latexmk" "latexmk -pdfxe -pdfxelatex=\"xelatex --shell-escape -no-pdf -interaction=nonstopmode -synctex=1 %O %S\" %s" TeX-run-TeX nil t
+   '("latexmk" "latexmk -xelatex %s" TeX-run-TeX nil t
+   :help "Run latexmk on file")
     TeX-command-list)))
 (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
 
-;; use Skim as default pdf viewer
-;; Skim's displayline is used for forward search (from .tex to .pdf)
-;; option -b highlights the current line; option -g opens Skim in the background
-;; make sure that ~/.latexmkrc has -synctex=1 option,
-;; and that auto-updating is unchecked in skim preferences
-;(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
-;; (setq TeX-view-program-list
-;;       '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -r -b -g %n %o %b")))
-
 ;; Latex
-  ;; Use Skim on macOS to utilize synctex.
-  ;; Confer https://mssun.me/blog/spacemacs-and-latex.html
+;; Use Skim on macOS to utilize synctex.
+;; Confer https://mssun.me/blog/spacemacs-and-latex.html
 (setq TeX-source-correlate-mode t)
 (setq TeX-source-correlate-start-server t)
 (setq TeX-source-correlate-method 'synctex)
@@ -244,7 +240,7 @@
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
+;;(setq mac-option-modifier nil)
 
 ; Set PATH, because we don't load .bashrc
 ; function from https://gist.github.com/jakemcc/3887459
@@ -264,3 +260,12 @@
 
 ;; global font size
 (set-face-attribute 'default nil :height 120)
+
+;; recompile shortcut for quick debugging
+(global-set-key (kbd "<f5>") 'recompile)
+
+;; use xelatex
+;;(setq TeX-engine 'xetex)
+
+;; save open buffers and restore when emacs is restarted
+(desktop-save-mode 1)
