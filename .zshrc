@@ -41,7 +41,7 @@ export TERM="xterm-256color"
 export EDITOR="vim"
 
 # add key to keychain on login
-eval $(keychain --eval --agents ssh id_rsa)
+#eval $(keychain --eval --agents ssh id_rsa)
 
 if [[ "$SHORT_HOST" == "siilipoiss" ]];
 then
