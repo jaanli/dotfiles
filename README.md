@@ -12,16 +12,8 @@ Initial setup:
 git init --bare $HOME/.cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
-# or add this to .zshrc
-echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
-```
-
-Then to add stuff, we can do:
-```
-config add .zshrc
-config commit -m 'added zshrc'
-config remote set-url origin git@github.com:altosaar/dotfiles.git
-config push
+config remote add origin git@github.com:altosaar/dotfiles.git
+config pull
 ```
 
 On a new computer:

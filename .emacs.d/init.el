@@ -10,9 +10,13 @@
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
+;; needed for company-anaconda
+(require 'rx)
+
 ; list the packages you want
 (setq package-list
-      '(ein deft xclip helm auctex-latexmk color-theme-solarized))
+      '(ein deft xclip helm company company-anaconda anaconda-mode auctex-latexmk
+	    yasnippet color-theme-solarized))
 
 ; activate all the packages
 (package-initialize)
@@ -26,6 +30,9 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; for normal desktop command+tab behavior
+(menu-bar-mode t)
+
 ; use ido for files
 (ido-mode 1)
 (setq ido-everywhere t)
@@ -36,10 +43,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-engine (quote xetex))
+ '(TeX-source-correlate-method (quote synctex))
+ '(TeX-source-correlate-mode t)
+ '(TeX-source-correlate-start-server t)
  '(global-visual-line-mode t)
  '(package-selected-packages
    (quote
-    (auctex-latexmk xclip deft ein color-theme-solarized)))
+    (yasnippet company helm anaconda-mode auctex-latexmk xclip deft ein color-theme-solarized)))
  '(python-indent-guess-indent-offset nil)
  '(python-indent-offset 2)
  '(send-mail-function (quote mailclient-send-it)))
@@ -89,13 +100,52 @@
 ;; change all prompts to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-; use ipython with autoreload for python interpreter
+;; python settings
+;; use ipython with autoreload for python interpreter
+(require 'python)
 (setq
  python-shell-interpreter "ipython"
  python-shell-interpreter-args "--simple-prompt --classic --nosep"
  ; use custom profile for autoreload magic
  ;python-shell-interpreter-args "--profile=dev --simple-prompt --classic --nosep"
 )
+
+;; (setq python-shell-interpreter "jupyter"
+;;       python-shell-interpreter-args "console --simple-prompt"
+      ;; python-shell-prompt-detect-failure-warning nil)
+;; (add-to-list 'python-shell-completion-native-disabled-interpreters
+;;              "jupyter")
+
+;; set python to utf-8
+(setenv "PYTHONIOENCODING" "utf-8")
+(setenv "LANG" "en_US.UTF-8")
+(setenv "LC_ALL" "en_US.UTF-8")
+(setenv "LC_CTYPE" "en_US.UTF-8")
+
+;(add-hook 'python-mode-hook 'jedi:setup)
+;(setq jedi:complete-on-dot t)
+;; autocomplete
+(add-hook 'python-mode-hook 'anaconda-mode)
+
+;; options for company autocomplete dropdown package
+(eval-after-load "company"
+  '(add-to-list 'company-backends 'company-anaconda))
+(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+
+;; use eldoc for printing function arguments in status bar
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+
+;; set line wrapping column default
+(setq-default fill-column 80)
+
+;; sentences end with single space
+(setq sentence-end-double-space nil)
+
+;; autosave all files
+(setq autosave-visited-mode 1)
 
 ;; from http://www.wangzerui.com/2017/02/20/setting-up-a-nice-environment-for-latex-on-macos/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -116,8 +166,39 @@
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 (setq reftex-plug-into-AUCTeX t)
 (setq Tex-PDF-mode t)
+
+;; Reftex and Cleveref
+(eval-after-load
+    "latex"
+  '(TeX-add-style-hook
+    "cleveref"
+    (lambda ()
+      (if (boundp 'reftex-ref-style-alist)
+      (add-to-list
+       'reftex-ref-style-alist
+       '("Cleveref" "cleveref"
+         (("\\cref" ?c) ("\\Cref" ?C) ("\\cpageref" ?d) ("\\Cpageref" ?D)))))
+      (reftex-ref-style-activate "Cleveref")
+      (TeX-add-symbols
+       '("cref" TeX-arg-ref)
+       '("Cref" TeX-arg-ref)
+       '("cpageref" TeX-arg-ref)
+       '("Cpageref" TeX-arg-ref)))))
+
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (turn-on-reftex)
+            (define-key LaTeX-mode-map (kbd "C-c l") 'reftex-cleveref-Cref)
+            (visual-line-mode t)
+	    (define-key LaTeX-mode-map (kbd "C-c [") 'reftex-citep)
+            t)
+	  )
+
+;; Change default equation behavior of reftex
+(setq reftex-label-alist '(AMSTeX))
 
 ;; https://gist.github.com/stefano-meschiari/9217695
 ;; Use Skim as viewer, enable source <-> PDF sync
@@ -126,23 +207,67 @@
 (add-hook 'LaTeX-mode-hook
 (lambda ()
   (push
-   '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-     :help "Run latexmk on file")
+;   '("latexmk" "latexmk -pdfxe -pdfxelatex=\"xelatex --shell-escape -no-pdf -interaction=nonstopmode -synctex=1 %O %S\" %s" TeX-run-TeX nil t
+   '("latexmk" "latexmk -xelatex %s" TeX-run-TeX nil t
+   :help "Run latexmk on file")
     TeX-command-list)))
 (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
 
-;; use Skim as default pdf viewer
-;; Skim's displayline is used for forward search (from .tex to .pdf)
-;; option -b highlights the current line; option -g opens Skim in the background  
-(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+;; Latex
+;; Use Skim on macOS to utilize synctex.
+;; Confer https://mssun.me/blog/spacemacs-and-latex.html
+(setq TeX-source-correlate-mode t)
+(setq TeX-source-correlate-start-server t)
+(setq TeX-source-correlate-method 'synctex)
+;; AucTex recognizes some standard viewers, but the default view command
+;; does not appear to sync.
 (setq TeX-view-program-list
-      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
-
-(custom-set-variables
-     '(TeX-source-correlate-method 'synctex)
-     '(TeX-source-correlate-mode t)
-     '(TeX-source-correlate-start-server t))
+      '(("Okular" "okular --unique %o#src:%n`pwd`/./%b")
+        ("Skim" "displayline -b -g %n %o %b")
+        ("Zathura"
+         ("zathura %o"
+          (mode-io-correlate
+           " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\"")))))
+(setq TeX-view-program-selection '((output-pdf "Skim")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; start emacs in server mode so that skim can talk to it
+(server-start)
 
+;; fix non-ASCII input in GUI mode
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'super)
+
+(setq mac-option-key-is-meta nil)
+(setq mac-command-key-is-meta t)
+(setq mac-command-modifier 'meta)
+;;(setq mac-option-modifier nil)
+
+; Set PATH, because we don't load .bashrc
+; function from https://gist.github.com/jakemcc/3887459
+(defun set-exec-path-from-shell-PATH ()
+  (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+  (let ((path-from-shell (shell-command-to-string "$SHELL -i -c 'echo -n $PATH'")))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(if window-system (set-exec-path-from-shell-PATH))
+
+;; yasnippet config
+(add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;; global font size
+(set-face-attribute 'default nil :height 120)
+
+;; recompile shortcut for quick debugging
+(global-set-key (kbd "<f5>") 'recompile)
+
+;; use xelatex
+;;(setq TeX-engine 'xetex)
+
+;; save open buffers and restore when emacs is restarted
+(desktop-save-mode 1)
 

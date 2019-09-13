@@ -285,7 +285,7 @@ c.InteractiveShellApp.extensions = ['autoreload']
 #c.TerminalInteractiveShell.editing_mode = 'emacs'
 
 ## Set the editor used by IPython (default to $EDITOR/vi/notepad).
-#c.TerminalInteractiveShell.editor = 'vim'
+c.TerminalInteractiveShell.editor = 'emacsclient'
 
 ## Allows to enable/disable the prompt toolkit history search
 #c.TerminalInteractiveShell.enable_history_search = True
