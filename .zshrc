@@ -17,7 +17,7 @@ fpath=( ~/.zfunc "${fpath[@]}" )
 autoload -Uz stanmake
 # define history search fn
 hgrep () {
-	history | egrep --color=auto --recursive "$@" | egrep --color=auto --recursive -v "hgrep $@"
+    history | egrep --color=auto --recursive "$@" | egrep --color=auto --recursive -v "hgrep $@"
 }
 
 # red dots to displayed while waiting for completion
@@ -45,19 +45,23 @@ export EDITOR="vim"
 
 if [[ "$SHORT_HOST" == "siilipoiss" ]];
 then
-	source ~/.secrets
-	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
-	export PATH="/usr/local/anaconda3/bin:$PATH"
-	# alias for readlink (brew install coreutils)
-	alias readlink=greadlink
+    source ~/.secrets
+    [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+    export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
+    export PATH="/usr/local/anaconda3/bin:$PATH"
+    # alias for readlink (brew install coreutils)
+    alias readlink=greadlink
 elif [[ "$HOST" == "beaker" ]];
 then
-	. /usr/share/autojump/autojump.sh
-	export PATH=/home/jaan/miniconda3/bin:$PATH
+    . /usr/share/autojump/autojump.sh
+    export PATH=/home/jaan/miniconda3/bin:$PATH
 elif [[ "$HOST" == "tiger1" ]];
 then
-	export PATH=/home/altosaar/bin:$PATH
+    export PATH=/home/altosaar/bin:$PATH
+elif [[ "$HOST" == "adroit4"]];
+then
+    [[ -s /home/altosaar/.autojump/etc/profile.d/autojump.sh ]] && source /home/altosaar/.autojump/etc/profile.d/autojump.sh
+    autoload -U compinit && compinit -u
 fi
 
 # keybindings for alt arrow keys to work for navigating shell lines
