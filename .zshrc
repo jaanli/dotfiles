@@ -1,34 +1,80 @@
-#
-# .zshrc is sourced in interactive shells.
-# It should contain commands to set up aliases,
-# functions, options, key bindings, etc.
-#
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
 
-autoload -U compinit
-compinit
+# Theme
+ZSH_THEME="ys"
 
-#allow tab completion in the middle of a word
-setopt COMPLETE_IN_WORD
+# Aliases
+alias cpwd="pwd | tr -d '\n' | pbcopy"
+alias s="subl $@"
+alias zc="subl ~/.zshrc"
+alias ..="cd .."
+alias p="python $@"
+alias rs="rsync -az --progress $@"
 
-## keep background processes at full speed
-#setopt NOBGNICE
-## restart running processes on exit
-#setopt HUP
+# zsh functions
+fpath=( ~/.zfunc "${fpath[@]}" )
+autoload -Uz stanmake
+# define history search fn
+hgrep () {
+	history | egrep --color=auto --recursive "$@" | egrep --color=auto --recursive -v "hgrep $@"
+}
 
-## history
-#setopt APPEND_HISTORY
-## for sharing history between zsh processes
-#setopt INC_APPEND_HISTORY
-#setopt SHARE_HISTORY
+# red dots to displayed while waiting for completion
+COMPLETION_WAITING_DOTS="false"
 
-## never ever beep ever
-#setopt NO_BEEP
+# Plugins
+plugins=(git autojump ruby tmux docker)
 
-## automatically decide when to page a list of completions
-#LISTMAX=0
+source $ZSH/oh-my-zsh.sh
 
-## disable mail checking
-#MAILCHECK=0
+# for dotfiles config
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-# autoload -U colors
-#colors
+# for getting full paths
+alias rf="readlink -f $@"
+
+# for powerline theme
+export TERM="xterm-256color"
+
+# for vim everywhere
+export EDITOR="vim"
+
+# add key to keychain on login
+eval $(keychain --eval --agents ssh id_rsa)
+
+if [[ "$SHORT_HOST" == "siilipoiss" ]];
+then
+	source ~/.secrets
+	[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+	export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:$PATH
+	export PATH="/usr/local/anaconda3/bin:$PATH"
+	# alias for readlink (brew install coreutils)
+	alias readlink=greadlink
+elif [[ "$HOST" == "beaker" ]];
+then
+	. /usr/share/autojump/autojump.sh
+	export PATH=/home/jaan/miniconda3/bin:$PATH
+elif [[ "$HOST" == "tiger1" ]];
+then
+	export PATH=/home/altosaar/bin:$PATH
+fi
+
+# keybindings for alt arrow keys to work for navigating shell lines
+bindkey -e
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey '^[[1;9C' forward-word
+bindkey '^[[1;9D' backward-word
+
+# locale options
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US:en
+
+export POWERLINE_CONFIG_COMMAND=powerline-config
+export POWERLINE_COMMAND=powerline
+
+# environment variables LOG, DAT for data and log files - unique to a server
+source ~/.experimentrc
