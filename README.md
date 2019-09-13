@@ -20,7 +20,7 @@ Then to add stuff, we can do:
 ```
 config add .zshrc
 config commit -m 'added zshrc'
-config remote set-url origin git@github.com:altosaar/dotfiles.git
+config remote add origin git@github.com:altosaar/dotfiles.git
 config push
 ```
 
